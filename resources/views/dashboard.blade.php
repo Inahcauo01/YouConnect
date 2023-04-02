@@ -77,21 +77,21 @@
                 <h2>Suggested Friends</h2>
                 <ul>
                     <li>
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width: 60px">
                         <div class="friend-details">
                             <h3>Jane Smith</h3>
                             <button>Add Friend</button>
                         </div>
                     </li>
                     <li>
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width: 60px">
                         <div class="friend-details">
                             <h3>Bob Johnson</h3>
                             <button>Add Friend</button>
                         </div>
                     </li>
                     <li>
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width: 60px">
                         <div class="friend-details">
                             <h3>Sarah Williams</h3>
                             <button>Add Friend</button>
