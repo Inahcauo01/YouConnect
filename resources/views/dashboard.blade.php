@@ -8,20 +8,20 @@
             <div class="trending">
                 <h2>Trending Topics</h2>
                 <ul>
-                    <li><a href="#">#socialmedia</a></li>
-                    <li><a href="#">#marketing</a></li>
-                    <li><a href="#">#technology</a></li>
-                    <li><a href="#">#business</a></li>
-                    <li><a href="#">#startup</a></li>
+                    <li class="links-left"><a href="#">#socialmedia</a></li>
+                    <li class="links-left"><a href="#">#marketing</a></li>
+                    <li class="links-left"><a href="#">#technology</a></li>
+                    <li class="links-left"><a href="#">#business</a></li>
+                    <li class="links-left"><a href="#">#startup</a></li>
                 </ul>
             </div>
             <div class="links">
                 <h2>Useful Links</h2>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li class="links-left"><a href="#">About Us</a></li>
+                    <li class="links-left"><a href="#">Contact Us</a></li>
+                    <li class="links-left"><a href="#">Privacy Policy</a></li>
+                    <li class="links-left"><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
         </aside>
