@@ -13,7 +13,7 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -45,7 +45,7 @@ class PostController extends Controller
         if ($request->hasFile('post_image')) {
             $image = $request->file('post_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('public/images', $filename);
+            $image->move(public_path('images'), $filename);
             $post->post_image = $filename;
         }
 

@@ -32,9 +32,11 @@
         <div class="publish">
             <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="form-publish">
                 @csrf
-                <div>
-                    <label for="post_image" class="form-label-publish">Image:</label>
-                    <input type="file" id="post_image" name="post_image" class="form-control-file-publish">
+                <div class="image-upload">
+                    <label for="upload">
+                        <i class="fa-solid fa-upload" style="color: #0248c0;"></i>
+                    </label>
+                    <input type="file" id="post_image" name="post_image">
                 </div>
                 <div class="form-bottom-part">
                     <label for="post_desc"  class="form-label-publish">Description:</label>
@@ -47,14 +49,17 @@
         </div>
         
         @foreach ($posts as $post)
-
+            @php
+                $date = Carbon\Carbon::parse($post->post_date);
+                $formattedDate = $date->format("j F Y");
+            @endphp
         <div class="feed">
             <div class="post">
                 <div class="post-header">
                     <img src="{{ asset('images/default.png') }}" alt="User Avatar">
                     <div class="post-header-details">
-                        <h2>John Doe</h2>
-                        <p>2 hours ago</p>
+                        <h2>{{ $post->user->name }}</h2>
+                        <p>{{ $formattedDate }}</p>
                     </div>
                 </div>
                 <div class="post-content">
