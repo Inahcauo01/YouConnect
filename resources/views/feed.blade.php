@@ -30,17 +30,19 @@
         <div class="feed-container">
 
         <div class="publish">
-            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="form-publish">
                 @csrf
                 <div>
-                    <label for="post_image">Image:</label>
-                    <input type="file" id="post_image" name="post_image">
+                    <label for="post_image" class="form-label-publish">Image:</label>
+                    <input type="file" id="post_image" name="post_image" class="form-control-file-publish">
                 </div>
-                <div>
-                    <label for="post_desc">Description:</label>
-                    <textarea id="post_desc" name="post_desc"></textarea>
+                <div class="form-bottom-part">
+                    <label for="post_desc"  class="form-label-publish">Description:</label>
+                    <textarea id="post_desc" name="post_desc" class="form-control-publish" rows="3" placeholder="what's in your head"></textarea>
                 </div>
-                <button type="submit">Post</button>
+                <button class="cta" type="submit">
+                    <span>Publier</span>
+                </button>
             </form>
         </div>
         
