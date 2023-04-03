@@ -27,6 +27,73 @@
         </aside>
 
         {{-- feed content (middle) --}}
+        <div class="feed-container">
+
+        <div class="publish">
+            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <label for="post_image">Image:</label>
+                    <input type="file" id="post_image" name="post_image">
+                </div>
+                <div>
+                    <label for="post_desc">Description:</label>
+                    <textarea id="post_desc" name="post_desc"></textarea>
+                </div>
+                <button type="submit">Post</button>
+            </form>
+        </div>
+        
+        @foreach ($posts as $post)
+
+        <div class="feed">
+            <div class="post">
+                <div class="post-header">
+                    <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                    <div class="post-header-details">
+                        <h2>John Doe</h2>
+                        <p>2 hours ago</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>{{$post->post_desc}}</p>
+                    @if($post->post_image != "")
+                        <img src="{{ asset('images/'.$post->post_image) }}" alt="post image">
+                    @endif
+                </div>
+                <div class="post-actions">
+                    <button class="like-button">Like</button><span>{{ $post->post_likes }} </span>
+                    <button class="comment-button">Comment</button><span>{{ $post->post_comments }} </span>
+                    {{-- <button class="share-button">Share</button> --}}
+                </div>
+
+                <div class="comments">
+                    <div class="comment">
+                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <div class="comment-details">
+                            <h3>Jane Smith</h3>
+                            <p>2 hours ago</p>
+                            <p>Great post, John!</p>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <div class="comment-details">
+                            <h3>Bob Johnson</h3>
+                            <p>1 hour ago</p>
+                            <p>Thanks for sharing, John.</p>
+                        </div>
+                    </div>
+                    <form class="comment-form">
+                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <input type="text" placeholder="Add a comment...">
+                        <button type="submit">Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
+
         <div class="feed">
             <div class="post">
                 <div class="post-header">
@@ -70,7 +137,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
         {{-- right bar --}}
         <aside class="sidebar-right">
             <div class="suggested-friends">
