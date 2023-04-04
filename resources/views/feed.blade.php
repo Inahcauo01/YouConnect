@@ -69,12 +69,23 @@
                     @endif
                 </div>
                 <div class="post-actions">
-                    <button class="like-button">Like</button><span>{{ $post->post_likes }} </span>
-                    <button class="comment-button">Comment</button><span>{{ $post->post_comments }} </span>
-                    {{-- <button class="share-button">Share</button> --}}
+                    @if(auth()->check() && !$post->likes()->where('user_id', auth()->user()->id)->exists())
+                        <form method="POST" action="{{ route('posts.like', $post) }}">
+                            @csrf
+                            <button type="submit" class="like-button">Like</button><span>{{ $post->likes()->count() }} </span>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('posts.unlike', $post) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="like-button">Unlike</button><span>{{ $post->likes()->count() }} </span>
+                        </form>
+                    @endif
+
+
                 </div>
 
-                <div class="comments">
+                {{-- <div class="comments">
                     <div class="comment">
                         <img src="{{ asset('images/default.png') }}" alt="User Avatar">
                         <div class="comment-details">
@@ -96,7 +107,7 @@
                         <input type="text" placeholder="Add a comment...">
                         <button type="submit">Post</button>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
         @endforeach

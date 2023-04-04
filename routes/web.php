@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,7 @@ Route::middleware([
 
 Route::get('/feed', [PostController::class, 'index'])->name('feed');
 Route::resource('posts', PostController::class);
+
+// like and unlike
+Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
+Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('posts.unlike');

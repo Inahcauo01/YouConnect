@@ -52,8 +52,8 @@ class PostController extends Controller
         $post->post_desc = $request->post_desc;
         $post->user_id = auth()->user()->id;
         $post->post_date = now();
-        $post->likes = 0;
-        $post->comments = 0;
+        // $post->likes = 0;
+        // $post->comments = 0;
         $post->save();
         
         return redirect()->route('feed')->with('success', 'Post added successfully.');

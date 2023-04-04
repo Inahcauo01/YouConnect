@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('post_image')->nullable();
             $table->text('post_desc')->nullable();
             $table->date('post_date');
-            $table->integer('likes')->default(0);
-            $table->integer('comments')->default(0);
+            // $table->integer('likes')->default(0);
+            // $table->integer('comments')->default(0);
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
