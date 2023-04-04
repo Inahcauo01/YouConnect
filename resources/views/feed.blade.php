@@ -89,37 +89,53 @@
                 
                 @foreach ($post->comments as $comment)
                     <div class="comments">
-                        <div class="comment">
-                            <img src="{{ asset('images/default.png') }}" alt="User Avatar">
-                            <div class="comment-details">
-                                <h3>{{ $comment->user->name }}</h3>
-                                <p><small>{{ $comment->comment_date }}</small></p>
-                                <p>{{ $comment->content }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                        <div class="comment">
-                            <p>{{ $comment->content }}</p>
-                            <small>Posted by {{ $comment->user->name }} on {{ $comment->comment_date }}</small>
-                        </div>
-                        @auth
-                            @if (auth()->user()->id === $comment->user_id)
-                                <div class="comment-actions">
-                                    <form action="{{ route('comments.update', [$post->id, $comment->id]) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input name="content" value="{{ $comment->content }}" />
-                                        <button type="submit">Save</button>
-                                    </form>
-                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">Delete</button>
-                                    </form>
+                        {{-- <div class="comment"> --}}
+                            {{-- <div  class="comment">
+                                <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                                <div class="comment-details">
+                                    <h3>{{ $comment->user->name }}</h3>
+                                    <p><small>{{ $comment->comment_date }}</small></p>
+                                    <p>{{ $comment->content }}</p>
                                 </div>
-                            @endif
-                        @endauth
+                            </div> --}}
+                            
+                            @auth
+                                @if (auth()->user()->id === $comment->user_id)
+                                    <div class="comment-actions d-flex">
+                                        
+                                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width:33px;height:33px;margin:auto">
+                                        <form action="{{ route('comments.update', [$post->id, $comment->id]) }}" method="POST" class="w-100">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="d-flex justify-content-between ps-2">
+                                                <div class="comment-details">
+                                                    <h3>{{ $comment->user->name }}</h3>
+                                                    <p><small>{{ $comment->comment_date }}</small></p>
+                                                    <p><input name="content" value="{{ $comment->content }}" class="coment-content-input"/></p>
+                                                </div>
+                                                <button type="submit" class="edit-btn-cmt hide"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877;"></i></button>
+                                            </div>
+                                        </form>
+                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" style="margin: auto">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delet-btn-cmt hide"><i class="fa-solid fa-trash p-1" style="color: #0065b877;"></i></button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <div  class="comment w-100">
+                                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                                        <div class="comment-details">
+                                            <h3>{{ $comment->user->name }}</h3>
+                                            <p><small>{{ $comment->comment_date }}</small></p>
+                                            <p>{{ $comment->content }}</p>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endauth
+                        {{-- </div> --}}
+                    </div>
+                        
                 @endforeach
 
 

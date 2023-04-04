@@ -38,7 +38,7 @@
         </div>
 
         @stack('modals')
-
+        <script src="{{ asset('js/script.js') }}"></script>
         @livewireScripts
     </body>
 </html>
