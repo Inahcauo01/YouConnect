@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +38,9 @@ Route::resource('posts', PostController::class);
 // like and unlike
 Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
 Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('posts.unlike');
+
+// comments
+Route::post('/posts/{post_id}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
