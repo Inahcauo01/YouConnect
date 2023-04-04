@@ -104,7 +104,7 @@
                                     <div class="comment-actions d-flex">
                                         
                                         <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width:33px;height:33px;margin:auto">
-                                        <form action="{{ route('comments.update', [$post->id, $comment->id]) }}" method="POST" class="w-100">
+                                        <form action="{{ route('comments.update', [$post->id, $comment->id]) }}" method="POST" class="w-100" id="form-edit-comment">
                                             @csrf
                                             @method('PUT')
                                             <div class="d-flex justify-content-between ps-2">
@@ -119,7 +119,7 @@
                                         <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" style="margin: auto">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="delet-btn-cmt hide"><i class="fa-solid fa-trash p-1" style="color: #0065b877;"></i></button>
+                                            <button type="submit" class="delet-btn-cmt"><i class="fa-solid fa-trash p-1" style="color: #0065b877;"></i></button>
                                         </form>
                                     </div>
                                 @else
