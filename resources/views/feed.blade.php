@@ -69,7 +69,7 @@
                     @endif
                 </div>
                 <div class="post-actions">
-                    @if(auth()->check() && !$post->likes()->where('user_id', auth()->user()->id)->exists())
+                    {{-- @if(auth()->check() && !$post->likes()->where('user_id', auth()->user()->id)->exists())
                         <form method="POST" action="{{ route('posts.like', $post) }}">
                             @csrf
                             <button type="submit" class="like-button">Like</button><span>{{ $post->likes()->count() }} </span>
@@ -80,8 +80,11 @@
                             @method('DELETE')
                             <button type="submit" class="like-button">Unlike</button><span>{{ $post->likes()->count() }} </span>
                         </form>
-                    @endif
+                    @endif --}}
+                    
 
+                    {{-- livewire like --}}
+                    <livewire:like-post :post="$post" />
 
                 </div>
 
