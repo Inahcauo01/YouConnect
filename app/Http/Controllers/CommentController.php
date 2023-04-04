@@ -62,26 +62,46 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, $comment_id)
+    // public function update(UpdateCommentRequest $request, $comment)
+    // {
+    //     $comment = Comment::findOrFail($comment);
+    //     if (Auth::user()->id !== $comment->user_id) {
+    //         abort(403, 'Unauthorized action.');
+    //     }
+
+    //     $comment->content = $request->input('content');
+    //     $comment->save();
+
+    //     return redirect()->route('feed');
+    // }
+    public function update(UpdateCommentRequest $request, $post_id, $comment_id)
     {
-        $comment = Comment::findOrFail($comment_id);
+        
+        $post = Post::findOrFail($post_id);
+        $comment = $post->comments()->findOrFail($comment_id);
+        
         if (Auth::user()->id !== $comment->user_id) {
             abort(403, 'Unauthorized action.');
         }
-
+        
         $comment->content = $request->input('content');
         $comment->save();
-
+        
         return redirect()->route('feed');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy($comment_id)
     {
-        $comment->delete();
+        $comment = Comment::findOrFail($comment_id);
 
+        if (Auth::user()->id !== $comment->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $comment->delete();
         return redirect()->route('feed');
     }
 }

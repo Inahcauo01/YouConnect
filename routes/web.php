@@ -41,6 +41,7 @@ Route::delete('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('
 
 // comments
 Route::post('/posts/{post_id}/comments', [CommentController::class, 'store'])->name('comments.store');
-Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+// Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::put('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
