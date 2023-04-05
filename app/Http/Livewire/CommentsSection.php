@@ -28,7 +28,7 @@ class CommentsSection extends Component
         $comment = new Comment;
         $comment->user_id = auth()->user()->id;
         $comment->post_id = $this->postId;
-        $comment->content = $this->newComment; // use the correct property name
+        $comment->content = $this->newComment;
         $comment->comment_date = now();
         $comment->save();
 
