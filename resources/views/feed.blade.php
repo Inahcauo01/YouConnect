@@ -87,17 +87,11 @@
 
                 </div>
                 
-                @foreach ($post->comments as $comment)
+                {{-- livewire comments --}}
+                <livewire:comments-section :postId="$post->id" />
+
+                {{-- @foreach ($post->comments as $comment)
                     <div class="comments">
-                        {{-- <div class="comment"> --}}
-                            {{-- <div  class="comment">
-                                <img src="{{ asset('images/default.png') }}" alt="User Avatar">
-                                <div class="comment-details">
-                                    <h3>{{ $comment->user->name }}</h3>
-                                    <p><small>{{ $comment->comment_date }}</small></p>
-                                    <p>{{ $comment->content }}</p>
-                                </div>
-                            </div> --}}
                             
                             @auth
                                 @if (auth()->user()->id === $comment->user_id)
@@ -133,13 +127,12 @@
                                     </div>
                                 @endif
                             @endauth
-                        {{-- </div> --}}
                     </div>
                         
-                @endforeach
+                @endforeach --}}
 
 
-                <form class="comment-form" action="{{ route('comments.store', ['post_id' => $post->id]) }}" method="POST">
+                {{-- <form class="comment-form" action="{{ route('comments.store', ['post_id' => $post->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <img src="{{ asset('images/default.png') }}" alt="User Avatar">
@@ -151,7 +144,7 @@
                             </g>
                         </svg>
                     </button>
-                </form>                
+                </form>                 --}}
                 
             </div>
         </div>
