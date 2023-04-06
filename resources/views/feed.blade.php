@@ -81,14 +81,16 @@
                         </form>
                     @endif --}}
                     
-
+                    
                     {{-- livewire like --}}
                     <livewire:like-post :post="$post" />
-
+    
                 </div>
+                <hr class="w-75 m-auto color-secondary my-3">
                 
                 {{-- livewire comments --}}
                 <livewire:comments-section :postId="$post->id" />
+
 
                 {{-- @foreach ($post->comments as $comment)
                     <div class="comments">

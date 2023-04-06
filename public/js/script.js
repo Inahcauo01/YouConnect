@@ -1,12 +1,16 @@
-document.querySelector(".coment-content-input").addEventListener("focus",()=>{
-    document.querySelector(".edit-btn-cmt").classList.remove("hide")
-})
+// document.querySelector(".comment-actions").addEventListener("mouseout",()=>{
+//     setTimeout(()=>{
+//         document.querySelector(".delet-btn-cmt").classList.add("hide")
+//     },1500)
+// })
 
-document.querySelector(".coment-content-input").addEventListener("blur",()=>{
-    document.querySelector(".edit-btn-cmt").classList.add("hide")
-    document.querySelector("#form-edit-comment").reset()
-})
+// function changeComment(commentId){
+//     document.querySelector("#edit-comment-in-"+commentId).value = document.querySelector("#coment-content-out-"+commentId).value
+// }
 
-document.querySelector(".comment-actions").addEventListener("mouseover",()=>{
-    document.querySelector(".delet-btn-cmt").classList.remove("hide")
+document.querySelector("#edit-comment-in-19").addEventListener("keyup",()=>{
+    console.log(document.querySelector("#edit-comment-in-19").value)
+})
+document.querySelector(".edit-btn-cmt").addEventListener("click", ()=>{
+    console.log("clicked   : "+document.querySelector("#edit-comment-in-19").value)
 })

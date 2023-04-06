@@ -315,3 +315,6 @@
 .coment-content-input{
   width: 100%;
 }
+.editedComment{
+  border-radius: 10px;
+}

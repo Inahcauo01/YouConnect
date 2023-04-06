@@ -6,19 +6,27 @@
                 @if (auth()->user()->id === $comment->user_id)
                     <div class="comment-actions d-flex">
                         <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width:33px;height:33px;margin:auto">
-
-                        <form wire:submit.prevent="updateComment({{ $post->id }}, {{ $comment->id }})" class="w-100" id="form-edit-comment">
-                            {{-- @csrf
-                            @method('PUT') --}}
+                        <div class="w-100">
                             <div class="d-flex justify-content-between ps-2">
                                 <div class="comment-details">
                                     <h3>{{ $comment->user->name }}</h3>
                                     <p><small>{{ $comment->comment_date }}</small></p>
-                                    <p><input wire:model.defer="content" class="coment-content-input"  value="{{ $comment->content }}"/></p>
+                                    <p><input id="coment-content-out-{{$comment->id}}" oninput="changeComment({{$comment->id}})" value="{{ $comment->content }}"/></p>
+                                    <p>
+                                        <form wire:submit.prevent="updateComment('{{ $postId }}', '{{ $comment->id }}', '{{ $editedComment }}')">
+                                        <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment">
+                                        <button class="edit-btn-cmt" type="update"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
+                                    </form>
+                                    </p>
                                 </div>
-                                <button type="submit" class="edit-btn-cmt hide"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877;"></i></button>
                             </div>
-                        </form>
+                        </div>
+                        {{-- <form wire:submit.prevent="updateComment('{{ $postId }}', '{{ $comment->id }}', '{{ $editedComment }}')">
+                            <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment">
+                            <button class="edit-btn-cmt" type="update"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
+                        </form> --}}
+                          
+                                               
 
                         <button wire:click="deleteComment({{ $comment->id }})" class="delet-btn-cmt"><i class="fa-solid fa-trash p-1" style="color: #0065b877;"></i></button>
                     </div>
@@ -36,6 +44,7 @@
         </div>
             
     @endforeach
+    {{-- add comment --}}
         <form class="comment-form" wire:submit.prevent="store">
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <img src="{{ asset('images/default.png') }}" alt="User Avatar">
@@ -48,5 +57,7 @@
                 </svg>
             </button>
         </form>
+
+    
     
 </div>
