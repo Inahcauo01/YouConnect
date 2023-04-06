@@ -14,17 +14,13 @@
                                     <p><input id="coment-content-out-{{$comment->id}}" oninput="changeComment({{$comment->id}})" value="{{ $comment->content }}"/></p>
                                     <p>
                                         <form wire:submit.prevent="updateComment('{{ $postId }}', '{{ $comment->id }}', '{{ $editedComment }}')">
-                                        <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment">
-                                        <button class="edit-btn-cmt" type="update"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
-                                    </form>
+                                            <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model="editedComment">
+                                            <button class="edit-btn-cmt" type="update"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
+                                        </form>
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        {{-- <form wire:submit.prevent="updateComment('{{ $postId }}', '{{ $comment->id }}', '{{ $editedComment }}')">
-                            <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment">
-                            <button class="edit-btn-cmt" type="update"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
-                        </form> --}}
                           
                                                
 
