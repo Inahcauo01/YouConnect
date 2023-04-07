@@ -16,14 +16,19 @@ class CommentsSection extends Component
     public $comments;
     public $content;
     public $newComment;
-    public $editedComment;
-    public $commentId;
+    public $editingCommentId;
+    public $editedComment = [];
 
     public function mount($postId)
     {
         $this->postId = $postId;
         $this->comments = Post::find($postId)->comments;
-        $this->editedComment = '';
+        
+        $this->editingCommentId = null;
+
+        foreach ($this->comments as $comment) {
+            $this->editedComment[$comment->id] = '';
+        }
 
     }
     
@@ -41,8 +46,13 @@ class CommentsSection extends Component
         $this->dispatchBrowserEvent('commentAdded');
     }
 
-    
-    public function updateComment($postId, $commentId, $editedComment)
+    public function editComment($commentId)
+    {
+        $this->editingCommentId = $commentId;
+        $this->editedComment[$commentId] = Comment::find($commentId)->content;
+    }
+
+    public function updateComment($commentId)
     {
         $comment = Comment::findOrFail($commentId);
 
@@ -50,13 +60,15 @@ class CommentsSection extends Component
             abort(403, 'Unauthorized action.');
         }
 
-        $comment->content = $editedComment;
+        $comment->content = $this->editedComment[$commentId];
         $comment->save();
 
-        $this->comments = Post::find($postId)->comments;
+        $this->comments = Post::find($this->postId)->comments;
 
-        $this->dispatchBrowserEvent('commentUpdated');
+        $this->editingCommentId = null;
     }
+
+    
 
 
     public function deleteComment($commentId)

@@ -11,20 +11,25 @@
                                 <div class="comment-details">
                                     <h3>{{ $comment->user->name }}</h3>
                                     <p><small>{{ $comment->comment_date }}</small></p>
-                                    <p><input id="coment-content-out-{{$comment->id}}" oninput="changeComment({{$comment->id}})" value="{{ $comment->content }}"/></p>
-                                    <p>
-                                        <form wire:submit.prevent="updateComment('{{ $postId }}', '{{ $comment->id }}', '{{ $editedComment }}')">
-                                            <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model="editedComment">
-                                            <button class="edit-btn-cmt" type="update"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
-                                        </form>
-                                    </p>
+                                    
+                                    @if ($editingCommentId === $comment->id)
+                                    <form wire:submit.prevent="updateComment('{{ $comment->id }}')">
+                                        <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment.{{ $comment->id }}">
+                                        <button class="edit-btn-cmt" type="submit"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
+                                    </form>
+                                    @else
+                                        <p>{{ $comment->content }}</p>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
-                          
-                                               
-
-                        <button wire:click="deleteComment({{ $comment->id }})" class="delet-btn-cmt"><i class="fa-solid fa-trash p-1" style="color: #0065b877;"></i></button>
+                        <div>
+                            @if ($editingCommentId !== $comment->id)
+                                <button wire:click="editComment({{ $comment->id }})" class="edit-btn-cmt"><i class="fa-solid fa-pen p-1" style="color: #0065b877;"></i></button>
+                            @endif
+                                <button wire:click="deleteComment({{ $comment->id }})" class="delet-btn-cmt"><i class="fa-solid fa-trash p-1" style="color: #0065b877;"></i></button>
+                        </div>
                     </div>
                 @else
                     <div  class="comment w-100">
@@ -38,7 +43,6 @@
                 @endif
             @endauth
         </div>
-            
     @endforeach
     {{-- add comment --}}
         <form class="comment-form" wire:submit.prevent="store">
