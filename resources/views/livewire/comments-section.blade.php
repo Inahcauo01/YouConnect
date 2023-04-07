@@ -13,10 +13,14 @@
                                     <p><small>{{ $comment->comment_date }}</small></p>
                                     
                                     @if ($editingCommentId === $comment->id)
-                                    <form wire:submit.prevent="updateComment('{{ $comment->id }}')">
-                                        <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment.{{ $comment->id }}">
-                                        <button class="edit-btn-cmt" type="submit"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
-                                    </form>
+                                    
+                                        <form wire:submit.prevent="updateComment('{{ $comment->id }}')">
+                                            <p>
+                                                <input id="edit-comment-in-{{$comment->id}}" type="text" wire:model.defer="editedComment.{{ $comment->id }}" class="coment-content-input border">
+                                                <button class="edit-btn-cmt" type="submit"><i class="fa-solid fa-pen-to-square p-1" style="color: #0065b877"></i></button>
+                                            </p>
+                                        </form>
+                                    
                                     @else
                                         <p>{{ $comment->content }}</p>
                                     @endif

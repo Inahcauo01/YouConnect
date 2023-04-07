@@ -59,9 +59,14 @@ class CommentsSection extends Component
         if (Auth::user()->id !== $comment->user_id) {
             abort(403, 'Unauthorized action.');
         }
+        $editedComment = trim($this->editedComment[$commentId]);
 
-        $comment->content = $this->editedComment[$commentId];
-        $comment->save();
+        if (empty($editedComment)) {
+            $comment->delete();
+        } else {
+            $comment->content = $editedComment;
+            $comment->save();
+        }
 
         $this->comments = Post::find($this->postId)->comments;
 

@@ -313,7 +313,9 @@
 }
 /* comments input*/
 .coment-content-input{
-  width: 100%;
+  height: 16px;
+  padding-left: 3px !important;
+  border-radius: 4px !important;
 }
 .editedComment{
   border-radius: 10px;
