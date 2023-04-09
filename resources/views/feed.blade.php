@@ -59,7 +59,8 @@
                         <img src="{{ asset('images/default.png') }}" alt="User Avatar">
                         <div class="post-header-details">
                             <h2>{{ $post->user->name }}</h2>
-                            <p>{{ $formattedDate }}</p>
+                            {{-- <p>{{ $formattedDate }}</p> --}}
+                            <p>{{ Carbon\Carbon::parse($post->post_date)->diffForHumans() }}</p>
                         </div>
                     </div>
                     @if (auth()->user()->id == $post->user->id)
@@ -68,7 +69,14 @@
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Supprimer</a></li>
+                                <li>
+                                    {{-- <a class="dropdown-item" href="#">Supprimer</a> --}}
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item">Supprimer</button>
+                                    </form>
+                                </li>
                                 <li><a class="dropdown-item" href="#">Modifier</a></li>
                             </ul>
                         </div>
