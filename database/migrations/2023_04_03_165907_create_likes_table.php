@@ -16,8 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');
 
-            // $table->boolean('like');//0 dislike, 1 like
-
             $table->unique(['user_id', 'post_id']);//unique combinaison
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

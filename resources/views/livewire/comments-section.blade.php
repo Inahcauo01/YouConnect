@@ -10,7 +10,8 @@
                             <div class="d-flex justify-content-between ps-2">
                                 <div class="comment-details">
                                     <h3>{{ $comment->user->name }}</h3>
-                                    <p><small>{{ $comment->comment_date }}</small></p>
+                                    <p><small>{{ Carbon\Carbon::parse($comment->comment_date)->diffForHumans() }}</small></p>
+                                    {{-- <p><small>{{ $comment->comment_date }}</small></p> --}}
                                     
                                     @if ($editingCommentId === $comment->id)
                                     
@@ -40,7 +41,7 @@
                         <img src="{{ asset('images/default.png') }}" alt="User Avatar">
                         <div class="comment-details">
                             <h3>{{ $comment->user->name }}</h3>
-                            <p><small>{{ $comment->comment_date }}</small></p>
+                            <p><small>{{ Carbon\Carbon::parse($comment->comment_date)->diffForHumans() }}</small></p>
                             <p>{{ $comment->content }}</p>
                         </div>
                     </div>

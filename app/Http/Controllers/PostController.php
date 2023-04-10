@@ -43,27 +43,24 @@ class PostController extends Controller
         $post = new Post;
 
         if ($request->hasFile('post_image')) {
-            $image = $request->file('post_image');
+            $image    = $request->file('post_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $filename);
             $post->post_image = $filename;
         }
 
         $post->post_desc = $request->post_desc;
-        $post->user_id = auth()->user()->id;
+        $post->user_id   = auth()->user()->id;
         $post->post_date = now();
-        // $post->likes = 0;
-        // $post->comments = 0;
         $post->save();
         
         return redirect()->route('feed')->with('success', 'Post added successfully.');
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
         $post = Post::with('user')->findOrFail($id);
         return view('posts.show', compact('post'));
@@ -72,7 +69,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
         $post = Post::findOrFail($id);
         return view('posts.edit', compact('post'));
@@ -81,7 +78,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, $id)
     {
         $validatedData = $request->validate([
             'post_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
