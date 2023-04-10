@@ -54,9 +54,10 @@
                 @endphp
             <div class="feed">
                 <div class="post">
-                    <div class="post-header d-flex justify-content-between align-items-center"">
+                    <div class="post-header d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                            {{-- <img src="{{ asset('images/default.png') }}" alt="User Avatar"> --}}
+                            <img src="{{ $post->user->profile_photo_url }}" alt="User Avatar">
                             <div class="post-header-details">
                                 <h2>{{ $post->user->name }}</h2>
                                 <p>{{ Carbon\Carbon::parse($post->post_date)->diffForHumans() }}</p>
