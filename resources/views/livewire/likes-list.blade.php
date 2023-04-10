@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.5ms>
     {{-- Stop trying to control. --}}
     <ul>
         @foreach ($likes as $like)
