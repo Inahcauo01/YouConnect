@@ -5,7 +5,7 @@
     @else
         <button wire:click="unlike" style="font-weight:900;font-size: 16px;color:#0065b8">Liked</button>
     @endif
-    {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#list-likes">{{ $post->likes()->count() }} </button> --}}
+    
     <button type="button" data-bs-toggle="modal" data-bs-target="#list-likes">{{ $post->likes()->count() }} </button>
     <div class="modal fade" id="list-likes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

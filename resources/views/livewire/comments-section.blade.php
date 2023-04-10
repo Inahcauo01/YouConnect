@@ -1,17 +1,23 @@
 <div>
     {{-- Be like water. --}}
+    <div class="d-flex justify-content-end fs-6 m-0">
+        <small>comments ({{ $post->comments()->count() }})</small>
+    </div>
     @foreach ($post->comments as $comment)
         <div class="comments">  
             @auth
                 @if (auth()->user()->id === $comment->user_id)
                     <div class="comment-actions d-flex">
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width:33px;height:33px;margin:auto">
+                        <img src="{{ $comment->user->profile_photo_url }}" alt="User Avatar" class="rounded-full h-8 w-8 object-cover">
                         <div class="w-100">
                             <div class="d-flex justify-content-between ps-2">
                                 <div class="comment-details">
                                     <h3>{{ $comment->user->name }}</h3>
-                                    <p><small>{{ Carbon\Carbon::parse($comment->comment_date)->diffForHumans() }}</small></p>
-                                    {{-- <p><small>{{ $comment->comment_date }}</small></p> --}}
+                                    <p><small>{{ Carbon\Carbon::parse($comment->comment_date)->diffForHumans() }}
+                                        @if ($comment->created_at != $comment->updated_at)
+                                            <span>(modifié)</span>
+                                        @endif
+                                    </small></p>
                                     
                                     @if ($editingCommentId === $comment->id)
                                     
@@ -38,10 +44,14 @@
                     </div>
                 @else
                     <div  class="comment w-100">
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+                        <img src="{{ $comment->user->profile_photo_url }}" alt="User Avatar" class="rounded-full h-8 w-8 object-cover">
                         <div class="comment-details">
                             <h3>{{ $comment->user->name }}</h3>
-                            <p><small>{{ Carbon\Carbon::parse($comment->comment_date)->diffForHumans() }}</small></p>
+                            <p><small>{{ Carbon\Carbon::parse($comment->updated_at)->diffForHumans() }}
+                                @if ($comment->updated_at != $comment->updated_at)
+                                (modifié)
+                                @endif
+                            </small></p>
                             <p>{{ $comment->content }}</p>
                         </div>
                     </div>
@@ -53,6 +63,7 @@
         <form class="comment-form" wire:submit.prevent="store">
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <img src="{{ asset('images/default.png') }}" alt="User Avatar">
+            {{-- <img src="{{ auth()->user->profile_photo_url }}" alt="User Avatar"> --}}
             <input type="text" placeholder="Add a comment..." wire:model="newComment" name="content">
             <button type="submit" name="addComment" title="envoyer le commentaire" class="ms-1">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="25.000000pt" height="25.000000pt" viewBox="0 0 30.000000 30.000000" preserveAspectRatio="xMidYMid meet" class="SendSVG">

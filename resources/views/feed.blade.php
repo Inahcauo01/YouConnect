@@ -56,7 +56,6 @@
                 <div class="post">
                     <div class="post-header d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            {{-- <img src="{{ asset('images/default.png') }}" alt="User Avatar"> --}}
                             <img src="{{ $post->user->profile_photo_url }}" alt="User Avatar">
                             <div class="post-header-details">
                                 <h2>{{ $post->user->name }}</h2>
@@ -88,8 +87,10 @@
                             <img src="{{ asset('images/'.$post->post_image) }}" alt="post image">
                         @endif
                     </div>
-                    <div class="post-actions">
+
+                    <div class="post-actions justify-content-between mt-2">
                         <livewire:like-post :post="$post" />
+                        {{-- <span class="fw-light" style="font-size: 15px">comments ({{ $post->comments()->count() }})</span> --}}
                     </div>
                     <hr class="w-75 m-auto color-secondary my-3">
                     <livewire:comments-section :postId="$post->id" />
