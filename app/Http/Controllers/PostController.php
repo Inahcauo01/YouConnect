@@ -110,6 +110,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('feed')->with('success', 'Le post a bien été supprimé.');
     }
 }

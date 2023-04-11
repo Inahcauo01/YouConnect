@@ -28,8 +28,7 @@
 
         {{-- feed content (middle) --}}
         <div class="feed-container">
-
-            <div class="publish">
+<div class="publish">
                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="form-publish">
                     @csrf
                     <div class="image-upload">
@@ -46,7 +45,10 @@
                     </button>
                 </form>
             </div>
-            
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            {{-- 
             @foreach ($posts as $post)
                 @php
                     $date = Carbon\Carbon::parse($post->post_date);
@@ -90,14 +92,14 @@
 
                     <div class="post-actions justify-content-between mt-2">
                         <livewire:like-post :post="$post" />
-                        {{-- <span class="fw-light" style="font-size: 15px">comments ({{ $post->comments()->count() }})</span> --}}
                     </div>
                     <hr class="w-75 m-auto color-secondary my-3">
                     <livewire:comments-section :postId="$post->id" />
                 </div>
             </div>
-            @endforeach
-            
+            @endforeach --}}
+            <livewire:posts />
+
             
         {{-- <livewire:manage-posts /> --}}
         </div> 
