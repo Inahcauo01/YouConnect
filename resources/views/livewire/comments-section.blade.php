@@ -1,9 +1,11 @@
-<div>
+<div class="comments-container" id="{{$post->id}}">
     {{-- Be like water. --}}
     <div class="d-flex justify-content-end fs-6 m-0">
         <small>comments ({{ $post->comments()->count() }})</small>
     </div>
+    
     @foreach ($post->comments as $comment)
+    @if ($post->id == $comment->post_id)
         <div class="comments">  
             @auth
                 @if (auth()->user()->id === $comment->user_id)
@@ -43,8 +45,8 @@
                         </div>
                     </div>
                 @else
-                    <div  class="comment w-100">
-                        <img src="{{ $comment->user->profile_photo_url }}" alt="User Avatar" class="rounded-full h-8 w-8 object-cover">
+                <div  class="comment w-100">
+                    <img src="{{ $comment->user->profile_photo_url }}" alt="User Avatar" class="rounded-full h-8 w-8 object-cover">
                         <div class="comment-details">
                             <h3>{{ $comment->user->name }}</h3>
                             <p><small>{{ Carbon\Carbon::parse($comment->updated_at)->diffForHumans() }}
@@ -55,9 +57,11 @@
                             <p>{{ $comment->content }}</p>
                         </div>
                     </div>
+                    @endif
+                    @endauth
+                </div>
+                
                 @endif
-            @endauth
-        </div>
     @endforeach
     {{-- add comment --}}
         <form class="comment-form" wire:submit.prevent="store">
@@ -75,5 +79,5 @@
         </form>
 
     
-    
+     
 </div>

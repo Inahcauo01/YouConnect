@@ -28,7 +28,7 @@
 
         {{-- feed content (middle) --}}
         <div class="feed-container">
-<div class="publish">
+            <div class="publish">
                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="form-publish">
                     @csrf
                     <div class="image-upload">
@@ -45,8 +45,23 @@
                     </button>
                 </form>
             </div>
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+            @if (session('add'))
+                <div class="alert alert-success alert-dismissible fade show align-items-center" role="alert">
+                    {{ session('add') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            @endif
+            @if (session('update'))
+                <div class="alert alert-success alert-dismissible fade show align-items-center" role="alert">
+                    {{ session('update') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            @endif
+            @if (session('delete'))
+                <div class="alert alert-success alert-dismissible fade show align-items-center" role="alert">
+                    {{ session('delete') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>            
             @endif
             {{-- 
             @foreach ($posts as $post)

@@ -54,7 +54,7 @@ class PostController extends Controller
         $post->post_date = now();
         $post->save();
         
-        return redirect()->route('feed')->with('success', 'Post added successfully.');
+        return redirect()->route('feed')->with('add', 'Post added successfully.');
     }
 
     /**
@@ -81,25 +81,15 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, $id)
     {
         $validatedData = $request->validate([
-            'post_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'post_desc' => 'nullable',
-            'post_date' => 'date',
+            'post_desc_up' => 'nullable',
         ]);
 
         $post = Post::findOrFail($id);
 
-        if ($request->hasFile('post_image')) {
-            $image = $request->file('post_image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/images', $filename);
-            $post->post_image = $filename;
-        }
-
-        $post->post_desc = $validatedData['post_desc'];
-        $post->post_date = $validatedData['post_date'];
+        $post->post_desc = $validatedData['post_desc_up'];
         $post->save();
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        return redirect()->route('feed')->with('update', 'le post a bien été modifié.');
     }
 
     /**
@@ -110,6 +100,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('feed')->with('success', 'Le post a bien été supprimé.');
+        return redirect()->route('feed')->with('delete', 'Le post a bien été supprimé.');
     }
 }

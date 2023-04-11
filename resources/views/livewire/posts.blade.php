@@ -1,29 +1,8 @@
 <div>
     {{-- In work, do what you enjoy. --}}
-    {{-- <div class="publish">
-        <form wire:submit.prevent="store" method="POST" enctype="multipart/form-data" class="form-publish">
-            @csrf
-            <div class="image-upload">
-                <label for="upload">
-                    <i class="fa-solid fa-upload" style="color: #0248c0;"></i>
-                </label>
-                <input type="file" wire:model="post_image" id="post_image" name="post_image">
-            </div>
-            <div class="form-bottom-part">
-                <textarea id="post_desc" wire:model="post_desc" name="post_desc" class="form-control-publish" rows="3" placeholder="what's in your head"></textarea>
-            </div>
-            <button class="cta" type="submit">
-                <span>Publier</span>
-            </button>
-        </form>
-    </div> --}}
     
     @foreach ($posts as $post)
-        @php
-            $date = Carbon\Carbon::parse($post->post_date);
-            $formattedDate = $date->format("j F Y");
-        @endphp
-        <div class="feed">
+        <div class="feed" id="{{$post->id}}">
             <div class="post">
                 <div class="post-header d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
@@ -40,11 +19,20 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <form wire:submit.prevent="deletePost({{ $post->id }})">
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
                                         <button type="submit" class="dropdown-item">Supprimer</button>
                                     </form>
+                                    {{-- <form wire:submit.prevent="deletePost({{ $post->id }})">
+                                        <button type="submit" class="dropdown-item">Supprimer</button>
+                                    </form> --}}
                                 </li>
-                                <li><a class="dropdown-item" href="#" wire:click.prevent="editPost({{ $post->id }})">Modifier</a></li>
+                                {{-- <li><a class="dropdown-item" href="#" wire:click.prevent="editPost({{ $post->id }})">Modifier</a></li> --}}
+                                <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#edit-post" 
+                                    onclick="updatePost({{$post->id}},'{{$post->post_desc }}','{{$post->post_image}}','{{$post->user->name}}','{{$post->user->profile_photo_url}}')">
+                                    Modifier</button>
+                                </li>
                             </ul>
                         </div>
                     @endif
@@ -52,7 +40,7 @@
                 <div class="post-content">
                     <p>{{ $post->post_desc }}</p>
                     @if ($post->post_image)
-                        <img src="{{ asset('images/'.$post->post_image) }}" alt="post image">
+                        <p class="d-flex justify-content-center"><img src="{{ asset('images/'.$post->post_image) }}" alt="post image"></p>
                     @endif
                 </div>
     
@@ -63,6 +51,48 @@
                 <livewire:comments-section :postId="$post->id" />
             </div>
         </div>
-    @endforeach
-    
+        <div class="modal fade" id="edit-post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form class="modal-content" action="{{ route('posts.update', $post->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    {{-- <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Likes for {{ $post->title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> --}}
+
+                    <div class="modal-body">
+                        <div class="post">
+                            <div class="post-header d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <p class="user-img">
+                                        {{-- <img src="{{ $post->user->profile_photo_url }}" alt="User Avatar"> --}}
+                                    </p>
+                                    <div class="post-header-details">
+                                        <h2 class="name-user">
+                                            {{-- {{ $post->user->name }} --}}
+                                        </h2>
+                                        {{-- <p>{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</p> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p><input type="hidden" name="postId_up" id="postId_up"></p>
+                                <p><input type="text" class="w-100" name="post_desc_up" id="post_desc_up"></p>
+                                @if ($post->post_image)
+                                    <p class="img-post"><img src="{{ asset('images/'.$post->post_image) }}" alt="post image"></p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" d-flex justify-content-end m-2">
+                        <button type="button" class="btn-sm m-2 btn-dark" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        {{-- <button class="btn btn-sm btn-primary" wire:click.prevent="updatePost({{ $post->id }})">Modifier</button> --}}
+                        <button class="btn btn-sm btn-primary" type="submit">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endforeach
+
 </div>
