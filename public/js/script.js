@@ -25,5 +25,5 @@ function modifier(postId, postDesc){
 }
 
 function liking(postId){
-    // document.querySelector("#click-like-"+postId).click();
+    document.querySelector("#click-like-"+postId).click();
 }
