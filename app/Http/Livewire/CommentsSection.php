@@ -75,7 +75,7 @@ class CommentsSection extends Component
 
     
 
- 
+
     public function deleteComment($commentId)
     {
         $comment = Comment::findOrFail($commentId);
