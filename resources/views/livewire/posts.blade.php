@@ -40,7 +40,7 @@
                 <div class="post-content">
                     <p>{{ $post->post_desc }}</p>
                     @if ($post->post_image)
-                        <p class="d-flex justify-content-center"><img src="{{ asset('images/'.$post->post_image) }}" alt="post image"></p>
+                        <p class="d-flex justify-content-center"><img src="{{ asset('images/'.$post->post_image) }}" alt="post image"  ondblclick="liking({{$post->id}})"></p>
                     @endif
                 </div>
     

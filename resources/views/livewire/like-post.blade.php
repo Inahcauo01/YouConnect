@@ -29,7 +29,7 @@
  <div id="{{$post->id}}">
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
     @if(auth()->check() && !$post->likes()->where('user_id', auth()->user()->id)->exists())
-        <button wire:click="like">Like</button>
+        <button wire:click="like" id="click-like-{{$post->id}}">Like</button>
     @else
         <button wire:click="unlike" style="font-weight:900;font-size: 16px;color:#0065b8">Liked</button>
     @endif

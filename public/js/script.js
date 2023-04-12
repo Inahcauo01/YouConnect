@@ -23,3 +23,7 @@ function modifier(postId, postDesc){
         }
     });
 }
+
+function liking(postId){
+ document.querySelector("#click-like-"+postId).click();
+}
