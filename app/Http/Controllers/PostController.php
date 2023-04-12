@@ -40,42 +40,85 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(StorePostRequest $request){
+    //     $validatedData = $request->validate([
+    //         'post_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     ]);
+
+    //     $post = new Post;
+
+    //     if ($request->hasFile('post_image')) {
+    //         $image    = $request->file('post_image');
+    //         $filename = time() . '.' . $image->getClientOriginalExtension();
+    //         $image->move(public_path('images'), $filename);
+    //         $post->post_image = $filename;
+    //     }
+
+    //     $post->post_desc = $request->post_desc;
+    //     $post->user_id   = auth()->user()->id;
+    //     $post->post_date = now();
+    //     $post->save();
+        
+    //     $tags = $request->input('tags');
+
+    //     if (!empty($tags)) {
+    //         $tagNames = explode(',', $tags);
+    //         $tagIds = [];
+
+    //         foreach ($tagNames as $tagName) {
+    //             $tag = Tag::firstOrCreate(['name' => $tagName]);
+    //             $tagIds[] = $tag->id;
+    //         }
+
+    //         $post->tags()->sync($tagIds);
+    //     }
+
+
+    //     return redirect()->route('feed')->with('add', 'Le  post a bien été ajouté.');
+    // }  
     public function store(StorePostRequest $request)
     {
         $validatedData = $request->validate([
             'post_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         $post = new Post;
-
+    
         if ($request->hasFile('post_image')) {
             $image    = $request->file('post_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $filename);
             $post->post_image = $filename;
         }
-
-        $post->post_desc = $request->post_desc;
-        $post->user_id   = auth()->user()->id;
+    
+        $postDescription = $request->input('post_description');
+        $tags = [];
+    
+        if (!empty($postDescription)) {
+            $words = explode(' ', $postDescription);
+            $tags = array_filter($words, function($word) {
+                return strpos($word, '#') === 0 && strpos($word, ' ') === false;
+            });
+        }
+    
+        // $post->post_desc = str_replace($tags, '', $postDescription);
+        $post->post_desc = $postDescription;
+        $post->user_id = auth()->user()->id;
         $post->post_date = now();
         $post->save();
-        
-        $tags = $request->input('tags');
-
-        if (!empty($tags)) {
-            $tagNames = explode(',', $tags);
-            $tagIds = [];
-
-            foreach ($tagNames as $tagName) {
-                $tag = Tag::firstOrCreate(['name' => $tagName]);
-                $tagIds[] = $tag->id;
+    
+        $tag_ids = [];
+    
+        if (is_array($tags)) {
+            foreach ($tags as $tag) {
+                $tag_model = Tag::firstOrCreate(['name' => $tag]);
+                $tag_ids[] = $tag_model->id;
             }
-
-            $post->tags()->sync($tagIds);
         }
-
-
-        return redirect()->route('feed')->with('add', 'Le  post a bien été ajouté.');
+    
+        $post->tags()->sync($tag_ids);
+    
+        return redirect()->route('feed')->with('add', 'Le post a été ajouté avec succès.');
     }
 
     /**

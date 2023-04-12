@@ -9,7 +9,7 @@
                 <h2>Trending Topics</h2>
                 <ul>
                     @foreach ($tags as $tag)
-                        <li class="links-left"><a href="{{ route('tags.index') }}">{{ '#' . $tag->name }}</a></li>
+                        <li class="links-left"><a href="{{ route('tags.index') }}">{{ $tag->name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -35,9 +35,12 @@
                         </label>
                         <input type="file" id="post_image" name="post_image">
                     </div>
-                    <input type="text" name="tags">
+                    {{-- <input type="text" name="tags">
                     <div class="form-bottom-part">
                         <textarea id="post_desc" name="post_desc" class="form-control-publish" rows="3" placeholder="what's in your head"></textarea>
+                    </div> --}}
+                    <div class="form-group w-100">
+                        <textarea type="text" class="form-control-publish" rows="3" id="post-description" name="post_description" placeholder="Enter your post description and tags"></textarea>
                     </div>
                     <button class="cta" type="submit">
                         <span>Publier</span>
