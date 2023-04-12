@@ -9,7 +9,7 @@
                         <img src="{{ $post->user->profile_photo_url }}" alt="User Avatar">
                         <div class="post-header-details">
                             <h2>{{ $post->user->name }}</h2>
-                            <p>{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</p>
+                            <p>{{ \Carbon\Carbon::parse($post->created_at)->formatLocalized('%e %B %Y') }}</p>
                         </div>
                     </div>
                     @if (auth()->user()->id == $post->user->id)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
@@ -19,8 +20,13 @@ class PostController extends Controller
      */
     public function index()
     {
+        $tags  = Tag::all();
         $posts = Post::with('user')->latest()->get();
-        return view('feed', compact('posts'));
+        // return view('feed', compact('posts'));
+        return view('feed', [
+            'tags' => $tags,
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -54,7 +60,22 @@ class PostController extends Controller
         $post->post_date = now();
         $post->save();
         
-        return redirect()->route('feed')->with('add', 'Post added successfully.');
+        $tags = $request->input('tags');
+
+        if (!empty($tags)) {
+            $tagNames = explode(',', $tags);
+            $tagIds = [];
+
+            foreach ($tagNames as $tagName) {
+                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $tagIds[] = $tag->id;
+            }
+
+            $post->tags()->sync($tagIds);
+        }
+
+
+        return redirect()->route('feed')->with('add', 'Le  post a bien été ajouté.');
     }
 
     /**

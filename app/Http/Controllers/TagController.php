@@ -12,10 +12,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Tag::class);
-        $tags = Tag::all();
-
-        return view('tags.index', compact('tags'));
+        // $tags = Tag::all();
+        // return view('feed', compact('tags'));
     }
 
     /**
@@ -31,7 +29,8 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = Tag::create($request->all());
+        return view('feed', compact('tags'));
     }
 
     /**
@@ -63,6 +62,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->back();
     }
 }

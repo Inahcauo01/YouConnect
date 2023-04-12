@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TagController;
 
 
 /*
@@ -44,3 +45,5 @@ Route::post('/posts/{post_id}/comments', [CommentController::class, 'store'])->n
 Route::put('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
+
+Route::resource('tags', TagController::class)->only(['index', 'show']);
