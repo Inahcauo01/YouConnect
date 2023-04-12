@@ -153,7 +153,7 @@ class PostController extends Controller
         $post->post_desc = $validatedData['post_desc_up'];
         $post->save();
 
-        return redirect()->route('feed')->with('update', 'le post a bien été modifié.');
+        return redirect()->route('feed')->with('update', 'Le post a bien été modifié.');
     }
 
     /**
@@ -162,6 +162,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('feed')->with('delete', 'Le post a bien été supprimé.');
