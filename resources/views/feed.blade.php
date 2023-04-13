@@ -9,7 +9,7 @@
                 <h2>Trending Topics</h2>
                 <ul>
                     @foreach ($tags as $tag)
-                        <li class="links-left"><a href="{{ route('tags.index') }}">{{ $tag->name }}</a></li>
+                        <li class="links-left"><a href="{{ route('tags.index') }}">{{ $tag->name }}</a> : {{$tag->posts->count()}}</li>
                     @endforeach
                 </ul>
             </div>

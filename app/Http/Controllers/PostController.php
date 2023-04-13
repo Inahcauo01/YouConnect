@@ -20,7 +20,20 @@ class PostController extends Controller
      */
     public function index()
     {
-        $tags  = Tag::all();
+        // $tags  = Tag::all();
+        // $tags  = Tag::withCount('posts')->orderByDesc('posts_count')->get();
+        
+        $tags = Tag::withCount('posts')->get();
+        $postCount = Post::count();
+
+        // Calculate the average number of posts per tag
+        $averageCount = $postCount / $tags->count();
+
+        // Sort the tags by their popularity
+        $tags = $tags->sortByDesc(function($tag) use ($averageCount) {
+                    return abs($tag->posts_count - $averageCount);
+                })->take(5);;
+
         $posts = Post::with('user')->latest()->get();
         // return view('feed', compact('posts'));
         return view('feed', [
@@ -40,42 +53,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(StorePostRequest $request){
-    //     $validatedData = $request->validate([
-    //         'post_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ]);
-
-    //     $post = new Post;
-
-    //     if ($request->hasFile('post_image')) {
-    //         $image    = $request->file('post_image');
-    //         $filename = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('images'), $filename);
-    //         $post->post_image = $filename;
-    //     }
-
-    //     $post->post_desc = $request->post_desc;
-    //     $post->user_id   = auth()->user()->id;
-    //     $post->post_date = now();
-    //     $post->save();
-        
-    //     $tags = $request->input('tags');
-
-    //     if (!empty($tags)) {
-    //         $tagNames = explode(',', $tags);
-    //         $tagIds = [];
-
-    //         foreach ($tagNames as $tagName) {
-    //             $tag = Tag::firstOrCreate(['name' => $tagName]);
-    //             $tagIds[] = $tag->id;
-    //         }
-
-    //         $post->tags()->sync($tagIds);
-    //     }
-
-
-    //     return redirect()->route('feed')->with('add', 'Le  post a bien été ajouté.');
-    // }  
+    
     public function store(StorePostRequest $request)
     {
         $validatedData = $request->validate([
@@ -162,9 +140,17 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        // $tagIds = $post->tags()->pluck('id')->toArray();
+        $tagIds = $post->tags()->pluck('tags.id')->toArray(); // recuperer les IDs des tags de ce post
         $post->tags()->detach();
         $post->delete();
-
+        
+        foreach ($tagIds as $tagId) {
+            $tag = Tag::findOrFail($tagId);
+            if ($tag->posts()->count() == 0) {
+                $tag->delete();
+            }
+        }
         return redirect()->route('feed')->with('delete', 'Le post a bien été supprimé.');
     }
 }

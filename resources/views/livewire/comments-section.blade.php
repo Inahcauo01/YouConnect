@@ -68,7 +68,8 @@
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <img src="{{ asset('images/default.png') }}" alt="User Avatar">
             {{-- <img src="{{ auth()->user->profile_photo_url }}" alt="User Avatar"> --}}
-            <input type="text" placeholder="Add a comment..." wire:model="newComment" name="content">
+            <input type="text" placeholder="Add a comment..." wire:model="newComment" name="newComment">
+            
             <button type="submit" name="addComment" title="envoyer le commentaire" class="ms-1">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="25.000000pt" height="25.000000pt" viewBox="0 0 30.000000 30.000000" preserveAspectRatio="xMidYMid meet" class="SendSVG">
                     <g transform="translate(0.000000,30.000000) scale(0.100000,-0.100000)" fill="#119fff8f" stroke="none">
@@ -76,6 +77,9 @@
                     </g>
                 </svg>
             </button>
+            {{-- @error('newComment')
+                <p>{{ $message}}</p>
+            @enderror --}}
         </form>
 
     
