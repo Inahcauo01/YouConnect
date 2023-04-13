@@ -41,3 +41,8 @@ function liking(postId){
         // Update the hidden input field for tags
         document.getElementById('tags').value = tags.join(',');
     });
+
+    Livewire.on('tag-posts', (tagSlug) => {
+        Livewire.emit('mountTagPosts', tagSlug);
+    });
+    

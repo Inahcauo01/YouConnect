@@ -24,14 +24,12 @@ class PostController extends Controller
         // $tags  = Tag::withCount('posts')->orderByDesc('posts_count')->get();
         
         $tags = Tag::withCount('posts')->get();
-        $postCount = Post::count();
 
-        // Calculate the average number of posts per tag
-        $averageCount = $postCount / $tags->count();
+        $moy_posts_par_tag = Post::count() / $tags->count();
 
         // Sort the tags by their popularity
-        $tags = $tags->sortByDesc(function($tag) use ($averageCount) {
-                    return abs($tag->posts_count - $averageCount);
+        $tags = $tags->sortByDesc(function($tag) use ($moy_posts_par_tag) {
+                    return abs($tag->posts_count - $moy_posts_par_tag);
                 })->take(5);;
 
         $posts = Post::with('user')->latest()->get();

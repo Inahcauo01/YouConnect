@@ -26,26 +26,26 @@ class Posts extends Component
         return view('livewire.posts', ['posts' => $posts]);
     }
 
-    public function deletePost($postId)
-    {
-        $post = Post::find($postId);
+    // public function deletePost($postId)
+    // {
+    //     $post = Post::find($postId);
 
-        if ($post && auth()->user()->id == $post->user->id) {
-            $post->delete();
-        }
-        session()->flash('delete', 'Le post a bien été supprimé.');
-    }
+    //     if ($post && auth()->user()->id == $post->user->id) {
+    //         $post->delete();
+    //     }
+    //     session()->flash('delete', 'Le post a bien été supprimé.');
+    // }
 
-    public function updatePost($postId)
-    {
-        $post = Post::find($postId);
+    // public function updatePost($postId)
+    // {
+    //     $post = Post::find($postId);
 
-        if($post && auth()->user()->id == $post->user->id){
-            $post->post_desc = $this->post_desc_up;
-            $post->save();
-            $this->emit('postUpdated');
-        }
+    //     if($post && auth()->user()->id == $post->user->id){
+    //         $post->post_desc = $this->post_desc_up;
+    //         $post->save();
+    //         $this->emit('postUpdated');
+    //     }
         
-    }
+    // }
 
 }
