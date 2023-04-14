@@ -42,7 +42,4 @@ function liking(postId){
         document.getElementById('tags').value = tags.join(',');
     });
 
-    Livewire.on('tag-posts', (tagSlug) => {
-        Livewire.emit('mountTagPosts', tagSlug);
-    });
     

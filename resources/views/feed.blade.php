@@ -11,6 +11,9 @@
                     @foreach ($tags as $tag)
                         <li class="links-left"><a href="#">{{ $tag->name }}</a> : {{$tag->posts->count()}}</li>
                     @endforeach
+                    @if (!$tags->count())
+                        <small class="d-flex flex-column text-center text-secondary">Il n y a aucun trending tags smallour l'instant.</small>
+                    @endif
                 </ul>
             </div>
             <div class="links">
@@ -126,28 +129,35 @@
         <aside class="sidebar-right">
             <div class="suggested-friends">
                 <h2>Suggested Friends</h2>
-                <ul>
-                    <li>
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width: 60px">
-                        <div class="friend-details">
-                            <h3>Jane Smith</h3>
-                            <button>Add Friend</button>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width: 60px">
-                        <div class="friend-details">
-                            <h3>Bob Johnson</h3>
-                            <button>Add Friend</button>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="{{ asset('images/default.png') }}" alt="User Avatar" style="width: 60px">
-                        <div class="friend-details">
-                            <h3>Sarah Williams</h3>
-                            <button>Add Friend</button>
-                        </div>
-                    </li>
+                {{-- <ul> --}}
+                    {{-- @foreach ($users as $user)
+                        @if (auth()->user()->id != $user->id)
+                        <li class="d-flex align-items-center border-bottom pb-3 mb-2">
+                            <img src="{{ asset('images/default.png') }}" alt="User Avatar" class="rounded-circle me-3 shadow-sm" style="width: 60px">
+                            <div class="friend-details">
+                            <h3 class="fw-bold mb-1">{{ $user->name }}</h3>
+                            <small class="follow-stats d-flex align-items-center mb-1">
+                                <span class="text-secondary me-3">{{ $user->following()->count() }} Following</span>
+                                <span class="text-secondary">{{ $user->follower()->count() }} Followers</span>
+                            </small>
+                            @if ($user->following->contains(auth()->user()->id))
+                                <button class="btn btn-sm btn-info rounded-pill px-3 text-white"><i class="fa-solid fa-plus"></i> Suivi(e)</button>
+                            @else
+                                <button class="btn btn-sm btn-info rounded-pill px-3 text-white"><i class="fa-solid fa-plus"></i> Suivre</button>
+                            @endif  
+                            </div>
+                        </li>
+                        @endif
+                    @endforeach --}}
+                    @foreach ($users as $user)
+                        @if (auth()->user()->id != $user->id)
+                            <li class="d-flex align-items-center border-bottom pb-3 mb-2">
+                                <img src="{{ asset('images/default.png') }}" alt="User Avatar" class="rounded-circle me-3 shadow-sm" style="width: 60px">
+                                {{-- @livewire('follow', ['user' => $user]) --}}
+                                <livewire:follow :user="$user" />
+                            </li>
+                        @endif
+                    @endforeach
                 </ul>
             </div>
         </aside>

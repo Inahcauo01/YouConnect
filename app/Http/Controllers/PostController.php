@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
@@ -20,23 +21,26 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $tags  = Tag::all();
+        $users  = User::all();
         // $tags  = Tag::withCount('posts')->orderByDesc('posts_count')->get();
         
         $tags = Tag::withCount('posts')->get();
 
-        $moy_posts_par_tag = Post::count() / $tags->count();
+        if($tags->count() >0){
+            $moy_posts_par_tag = Post::count() / $tags->count();
 
-        // Sort the tags by their popularity
-        $tags = $tags->sortByDesc(function($tag) use ($moy_posts_par_tag) {
-                    return abs($tag->posts_count - $moy_posts_par_tag);
-                })->take(5);;
-
+            // Sort the tags by their popularity
+            $tags = $tags->sortByDesc(function($tag) use ($moy_posts_par_tag) {
+                        return abs($tag->posts_count - $moy_posts_par_tag);
+                    })->take(5);;
+        }
+        
         $posts = Post::with('user')->latest()->get();
         // return view('feed', compact('posts'));
         return view('feed', [
-            'tags' => $tags,
+            'tags'  => $tags,
             'posts' => $posts,
+            'users' => $users,
         ]);
     }
 
