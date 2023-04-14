@@ -20,18 +20,6 @@ class Follow extends Component
     {
         return view('livewire.follow');
     }
-    
-    // public function toggleFollow()
-    // {
-    //     if ($this->user->following->contains(auth()->user()->id)) {
-    //         auth()->user()->following()->detach($this->user);
-    //     } else {
-    //         auth()->user()->following()->attach($this->user);
-    //     }
-    //     $this->user = $this->user->fresh();
-    //     $this->emit('refreshComponent');
-    // }
-
 
     public function follow()
     {
@@ -44,19 +32,5 @@ class Follow extends Component
         auth()->user()->following()->detach($this->user);
         $this->user = $this->user->fresh();
     }
-
-    // public function follow($following_id)
-    // {
-    //     $following = User::find($following_id);
-    //     auth()->user()->followings()->attach($following);
-    //     $this->user = $this->user->fresh();
-    // }
-
-    // public function unfollow($following_id)
-    // {
-    //     $following = User::find($following_id);
-    //     auth()->user()->following()->detach($following);
-    //     $this->user = $this->user->fresh();
-    // }
-
+    
 }

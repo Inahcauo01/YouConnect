@@ -12,7 +12,7 @@
                         <li class="links-left"><a href="#">{{ $tag->name }}</a> : {{$tag->posts->count()}}</li>
                     @endforeach
                     @if (!$tags->count())
-                        <small class="d-flex flex-column text-center text-secondary">Il n y a aucun trending tags smallour l'instant.</small>
+                        <small class="d-flex flex-column text-center text-secondary">Il n y a aucun trending tags pour l'instant.</small>
                     @endif
                 </ul>
             </div>
@@ -162,6 +162,6 @@
             </div>
         </aside>
     </main>
-
+    
   
 </x-app-layout>

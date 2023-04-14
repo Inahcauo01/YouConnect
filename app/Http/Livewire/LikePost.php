@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use App\Models\Post;
 
@@ -19,11 +20,15 @@ class LikePost extends Component
         $this->post->likes()->create([
             'user_id' => auth()->id(),
         ]);
+        $this->post->refresh();
     }
 
     public function unlike()
     {
         $this->post->likes()->where('user_id', auth()->id())->delete();
+        $this->post->refresh();
+        Log::info('Unlike button clicked!');
+        
     }
 
     public function render()
