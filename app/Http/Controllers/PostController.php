@@ -113,22 +113,24 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
-    {
-        $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
-    }
+    // public function edit($id)
+    // {
+    //     $post = Post::findOrFail($id);
+    //     return view('posts.edit', compact('post'));
+    // }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, $id)
+    // public function update(UpdatePostRequest $request, $id)
+    public function update(UpdatePostRequest $request)
     {
         $validatedData = $request->validate([
+            'postId_up' => 'required',
             'post_desc_up' => 'nullable',
         ]);
 
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($validatedData['postId_up']);
 
         $post->post_desc = $validatedData['post_desc_up'];
         $post->save();

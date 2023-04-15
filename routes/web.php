@@ -35,6 +35,7 @@ Route::middleware([
 
 Route::get('/feed', [PostController::class, 'index'])->name('feed');
 Route::resource('posts', PostController::class);
+Route::put('posts', [PostController::class, 'update'])->name('posts.update');
 
 // like and unlike
 Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
