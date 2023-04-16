@@ -82,8 +82,17 @@
                 @endif
 
                 <div class="dropdown">
-                    <button class="m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{-- <button class="m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
+                    </button> --}}
+                    <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
+                        @if (auth()->user()->unreadNotifications->count() > 0)
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ auth()->user()->unreadNotifications->count() }}
+                            <span class="visually-hidden">unread messages</span>
+                        @endif
+                        </span>
                     </button>
                     <ul class="dropdown-menu">
                         <div class="notification-heading d-flex justify-content-between align-items-center px-1">
