@@ -76,9 +76,48 @@
                                 </div>
                             </x-slot>
                         </x-dropdown>
+                        
                     </div>
+                    
                 @endif
 
+                <div class="dropdown">
+                    <button class="m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div class="notification-heading d-flex justify-content-between align-items-center px-1">
+                            <p class="menu-title ">Notifications <small>({{ auth()->user()->unreadNotifications->count() }})</small></p>
+                            <p class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></p>
+                        </div>
+                        <hr class="m-auto w-75 mt-2">
+                        {{-- @foreach(auth()->user()->unreadNotifications as $notification) --}}
+                            <li class="bg-light">
+                                <a class="dropdown-item" href="#">
+                                    <small class="notification-item">
+                                        <b>Tarek</b> liked your post hello world
+                                        {{-- <b>{{ $notification->data['user_name'] }}</b> liked your post {{ $notification->data['post_id'] }} --}}
+                                    </small>
+                                </a>
+                            </li>
+                        {{-- @endforeach --}}
+                    </ul>
+                    
+                    {{-- <ul class="dropdown-menu">
+                        <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+                        </div>
+                        <li><a class="dropdown-item" href="#">
+                                <div class="notification-item">
+                                <p class="item-title">Evaluation Deadline 1 · day ago</p>
+                                <p class="item-info">Marketing 101, Video Assignment</p>
+                                </div>        
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul> --}}
+                </div>
+        
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-dropdown align="right" width="48">
