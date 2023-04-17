@@ -16,12 +16,13 @@ class LikeNotifications extends Notification
      */
     public $post_id;
     public $like_post;
-    // public $image_post;
+    public $image_post;
 
-    public function __construct($post_id, $like_post)
+    public function __construct($post_id, $like_post, $image_post)
     {
         $this->post_id   = $post_id;
         $this->like_post = $like_post;
+        $this->image_post = $image_post;
     }
 
     /**
@@ -55,6 +56,7 @@ class LikeNotifications extends Notification
         return [
             'post_id'   => $this->post_id,
             'like_post' => $this->like_post,
+            'image_post' => $this->image_post,
         ];
     }
 

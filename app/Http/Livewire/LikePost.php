@@ -26,7 +26,7 @@ class LikePost extends Component
 
         if($this->post->user->id != auth()->user()->id)
         // $this->post->user->notify(new LikeNotifications($this->post->id, auth()->user()->name));
-        Notification::send($this->post->user, new LikeNotifications($this->post->id, auth()->user()->name));
+        Notification::send($this->post->user, new LikeNotifications($this->post->id, auth()->user()->name, $this->post->post_image));
 
     }
 

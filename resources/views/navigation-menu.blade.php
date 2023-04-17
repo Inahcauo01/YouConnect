@@ -100,16 +100,18 @@
                             <p class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></p>
                         </div>
                         <hr class="m-auto w-75 mt-2">
-                        {{-- @foreach(auth()->user()->unreadNotifications as $notification) --}}
+                        @foreach(auth()->user()->unreadNotifications as $notification)
                             <li class="bg-light">
                                 <a class="dropdown-item" href="#">
-                                    <small class="notification-item">
-                                        <b>Tarek</b> liked your post hello world
-                                        {{-- <b>{{ $notification->data['user_name'] }}</b> liked your post {{ $notification->data['post_id'] }} --}}
+                                    <small class="notification-item d-flex justify-content-between align-items-center">
+                                        <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                                        @if (isset($notification->data['image_post']))
+                                        <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end mx-5 rounded">
+                                        @endif
                                     </small>
                                 </a>
                             </li>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </ul>
                     
                     {{-- <ul class="dropdown-menu">
