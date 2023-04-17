@@ -17,16 +17,17 @@
                     </x-nav-link>
                 </div> --}}
 
-                <div class="d-flex align-items-center">
-                    <input type="text" class="rounded-start" placeholder="Recherche" style="height: 30px; width: 30rem;border-radius: 10px 0 0 10px">
-                    <button class="d-flex align-items-center border border-secondary px-1" style="height: 31px; border-radius: 0 10px 10px 0; border-left: none" type="button" id="button-addon2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
-                    </button>
-                </div>
-
             </div>
+
+            {{-- search --}}
+            {{-- <div class="d-flex align-items-center">
+                <input type="text" class="rounded-start" placeholder="Recherche" class="w-50">
+                <button class="d-flex align-items-center border-none border-secondary px-1" type="button" id="button-addon2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+            </div>  --}}
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
@@ -82,9 +83,6 @@
                 @endif
 
                 <div class="dropdown">
-                    {{-- <button class="m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
-                    </button> --}}
                     <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
                         @if (auth()->user()->unreadNotifications->count() > 0)
@@ -94,39 +92,39 @@
                         @endif
                         </span>
                     </button>
-                    <ul class="dropdown-menu">
-                        <div class="notification-heading d-flex justify-content-between align-items-center px-1">
-                            <p class="menu-title ">Notifications <small>({{ auth()->user()->unreadNotifications->count() }})</small></p>
-                            <p class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></p>
+                    <ul class="dropdown-menu" style="width: 25rem">
+                        <div class="notification-heading d-flex justify-content-between align-items-center px-2">
+                            <p class="menu-title ">Notifications ({{ auth()->user()->unreadNotifications->count() }})</p>
+                            <button class="btn btn-sm" href="#">marquer comme lu</button>
                         </div>
                         <hr class="m-auto w-75 mt-2">
+                        {{-- @dd(auth()->user()->unreadNotifications) --}}
                         @foreach(auth()->user()->unreadNotifications as $notification)
-                            <li class="bg-light">
-                                <a class="dropdown-item" href="#">
-                                    <small class="notification-item d-flex justify-content-between align-items-center">
-                                        <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                            @if ($notification->type == "App\Notifications\LikeNotifications")
+                                <li class="border-bottom">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
+                                        <small class="notification-item ">
+                                            <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                        </small>
                                         @if (isset($notification->data['image_post']))
-                                        <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end mx-5 rounded">
+                                            <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end rounded">
                                         @endif
-                                    </small>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($notification->type == "App\Notifications\FollowNotifications")
+                                <li class="border-bottom">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                        <small class="notification-item ">
+                                            <p><b>{{ $notification->data['follower_name'] }}</b> is following you</p>
+                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                        </small>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
-                    
-                    {{-- <ul class="dropdown-menu">
-                        <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
-                        </div>
-                        <li><a class="dropdown-item" href="#">
-                                <div class="notification-item">
-                                <p class="item-title">Evaluation Deadline 1 · day ago</p>
-                                <p class="item-info">Marketing 101, Video Assignment</p>
-                                </div>        
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul> --}}
                 </div>
         
                 <!-- Settings Dropdown -->
@@ -186,6 +184,36 @@
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
+                <div class="dropdown">
+                    <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
+                        @if (auth()->user()->unreadNotifications->count() > 0)
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ auth()->user()->unreadNotifications->count() }}
+                            <span class="visually-hidden">unread messages</span>
+                        @endif
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu" style="width: 100vw">
+                        <div class="notification-heading d-flex justify-content-between align-items-center px-1">
+                            <p class="menu-title ">Notifications <small>({{ auth()->user()->unreadNotifications->count() }})</small></p>
+                            <p class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></p>
+                        </div>
+                        <hr class="m-auto w-75 mt-2">
+                        {{-- @foreach(auth()->user()->unreadNotifications as $notification)
+                            <li class="bg-light">
+                                <a class="dropdown-item" href="#">
+                                    <small class="notification-item d-flex justify-content-between align-items-center">
+                                        <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                                        @if (isset($notification->data['image_post']))
+                                        <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end mx-5 rounded">
+                                        @endif
+                                    </small>
+                                </a>
+                            </li>
+                        @endforeach --}}
+                    </ul>
+                </div>
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />

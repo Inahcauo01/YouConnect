@@ -7,6 +7,8 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\DB;
+
 
 class PostController extends Controller
 {
@@ -106,8 +108,25 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $users  = User::all();
+        $tags = Tag::withCount('posts')->get();
+
+        if($tags->count() >0){
+            $moy_posts_par_tag = Post::count() / $tags->count();
+            $tags = $tags->sortByDesc(function($tag) use ($moy_posts_par_tag) {
+                        return abs($tag->posts_count - $moy_posts_par_tag);
+                    })->take(5);;
+        }
         $post = Post::with('user')->findOrFail($id);
-        return view('posts.show', compact('post'));
+        $getid = DB::table('notifications')->where('data->post_id',$id)->pluck('id');
+        DB::table('notifications')->where('id',$getid)->update(['read_at'=>now()]);
+
+        return view('posts.show', [
+            'tags'  => $tags,
+            'post'  => $post,
+            'users' => $users,
+        ]);
+        // return view('posts.show', compact('post'));
     }
 
     /**

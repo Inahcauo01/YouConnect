@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\FollowNotifications;
 
 class Follow extends Component
 {
@@ -24,6 +26,7 @@ class Follow extends Component
     public function follow()
     {
         auth()->user()->following()->attach($this->user);
+        Notification::send($this->user, new FollowNotifications(auth()->user()->name));
         $this->user = $this->user->fresh();
     }
 

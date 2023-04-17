@@ -29,51 +29,6 @@
 
         {{-- feed content (middle) --}}
         <div class="feed-container">
-            <div class="publish">
-                <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="form-publish">
-                    @csrf
-                    <div class="image-upload">
-                        <label for="upload">
-                            <i class="fa-solid fa-upload" style="color: #0248c0;"></i>
-                        </label>
-                        <input type="file" id="post_image" name="post_image">
-                    </div>
-                    {{-- <input type="text" name="tags">
-                    <div class="form-bottom-part">
-                        <textarea id="post_desc" name="post_desc" class="form-control-publish" rows="3" placeholder="what's in your head"></textarea>
-                    </div> --}} 
-                    <div class="form-group w-100">
-                        <textarea type="text" class="form-control-publish" rows="3" id="post-description" name="post_description" placeholder="Enter your post description and tags"></textarea>
-                    </div>
-                    <button class="cta" type="submit">
-                        <span>Publier</span>
-                    </button>
-                </form>
-            </div>
-            @if (session('add'))
-                <div class="alert alert-success alert-dismissible fade show align-items-center" role="alert">
-                    {{ session('add') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            @endif
-            @if (session('update'))
-                <div class="alert alert-success alert-dismissible fade show align-items-center" role="alert">
-                    {{ session('update') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            @endif
-            @if (session('delete'))
-                <div class="alert alert-success alert-dismissible fade show align-items-center" role="alert">
-                    {{ session('delete') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                </div>            
-            @endif
-            {{-- 
-            @foreach ($posts as $post)
-                @php
-                    $date = Carbon\Carbon::parse($post->post_date);
-                    $formattedDate = $date->format("j F Y");
-                @endphp
                 <div class="feed">
                     <div class="post">
                         <div class="post-header d-flex justify-content-between align-items-center">
@@ -117,15 +72,9 @@
                         <livewire:comments-section :postId="$post->id" />
                     </div>
                 </div>
-            @endforeach --}}
 
-            <livewire:posts />
-
-            
-        {{-- <livewire:manage-posts /> --}}
         </div> 
 
-        {{-- right bar --}}
         <aside class="sidebar-right">
             <div class="suggested-friends">
                 <h2>Suggested Friends</h2>
@@ -141,6 +90,7 @@
                 </ul>
             </div>
         </aside>
+
     </main>
     
   
