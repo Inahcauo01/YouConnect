@@ -8,6 +8,8 @@ use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\CommentNotifications;
 
 class CommentsSection extends Component
 {
@@ -43,6 +45,10 @@ class CommentsSection extends Component
 
         $this->comments = Post::find($this->postId)->comments;
         $this->newComment = '';
+
+        $post = Post::find($this->postId);
+        if ($post->user_id != auth()->user()->id)
+            Notification::send(Post::find($this->postId)->user, new CommentNotifications($this->postId, auth()->user()->name, $comment->content));
         $this->dispatchBrowserEvent('commentAdded');
     }
 

@@ -2,7 +2,7 @@
 
     <div class="py-3">
 
-    <main class="main">
+    <main class="main mt-5">
         {{-- left bar --}}
         <aside class="sidebar-left">
             <div class="trending">

@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 ">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 fixed top-O w-100 nav-all">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -118,6 +118,17 @@
                                     <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
                                         <small class="notification-item ">
                                             <p><b>{{ $notification->data['follower_name'] }}</b> is following you</p>
+                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                        </small>
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($notification->type == "App\Notifications\CommentNotifications")
+                                {{-- @dd($notification) --}}
+                                <li class="border-bottom">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
+                                        <small class="notification-item ">
+                                            <p><b>{{ $notification->data['comment_post'] }}</b> a ajouté un commentaire: "{{$notification->data['content_comment']}}"</p>
                                             <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
                                         </small>
                                     </a>

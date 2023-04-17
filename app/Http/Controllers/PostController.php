@@ -117,9 +117,19 @@ class PostController extends Controller
                         return abs($tag->posts_count - $moy_posts_par_tag);
                     })->take(5);;
         }
+
         $post = Post::with('user')->findOrFail($id);
-        $getid = DB::table('notifications')->where('data->post_id',$id)->pluck('id');
-        DB::table('notifications')->where('id',$getid)->update(['read_at'=>now()]);
+
+        // $getid = DB::table('notifications')->where('data->post_id',$id)->pluck('id');
+        // DB::table('notifications')->where('id',$getid)->update(['read_at'=>now()]);
+
+        $notification = DB::table('notifications')->where('data->post_id', $id)->first();
+        if ($notification) {
+            DB::table('notifications')->where('id', $notification->id)->update(['read_at' => date('Y-m-d H:i:s')]);
+        }
+        
+
+
 
         return view('posts.show', [
             'tags'  => $tags,
