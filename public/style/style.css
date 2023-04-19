@@ -342,4 +342,5 @@
 .nav-all{
   background-color: white;
   box-shadow: 0 0 4px lightgray;
+  z-index: 10;
 }

@@ -81,7 +81,7 @@
                     </div>
                     
                 @endif
-
+                    {{-- notifications --}}
                 <div class="dropdown">
                     <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
@@ -167,8 +167,12 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <x-dropdown-link href="{{ route('profiles.show', auth()->id()) }}">
                                 {{ __('Profile') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Parametres') }}
                             </x-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

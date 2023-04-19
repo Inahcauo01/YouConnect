@@ -128,9 +128,6 @@ class PostController extends Controller
             DB::table('notifications')->where('id', $notification->id)->update(['read_at' => date('Y-m-d H:i:s')]);
         }
         
-
-
-
         return view('posts.show', [
             'tags'  => $tags,
             'post'  => $post,
@@ -166,42 +163,7 @@ class PostController extends Controller
 
         return redirect()->route('feed')->with('update', 'Le post a bien été modifié.');
     }
-    // public function update(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'postId_up' => 'required',
-    //         'post_desc_up' => 'nullable',
-    //     ]);
-
-    //     $post = Post::findOrFail($id);
-
-    //     $postDescription = $request->input('post_desc_up');
-    //     $tags = [];
-
-    //     if (!empty($postDescription)) {
-    //         $words = explode(' ', $postDescription);
-    //         $tags = array_filter($words, function($word) {
-    //             return strpos($word, '#') === 0 && strpos($word, ' ') === false;
-    //         });
-    //     }
-
-    //     $post->post_desc = $postDescription;
-    //     $post->post_date = now();
-    //     $post->save();
-
-    //     $tag_ids = [];
-
-    //     if (is_array($tags)) {
-    //         foreach ($tags as $tag) {
-    //             $tag_model = Tag::firstOrCreate(['name' => $tag]);
-    //             $tag_ids[] = $tag_model->id;
-    //         }
-    //     }
-
-    //     $post->tags()->sync($tag_ids);
-
-    //     return redirect()->route('feed')->with('update', 'Le post a été modifié avec succès.');
-    // }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -209,17 +171,21 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        // $tagIds = $post->tags()->pluck('id')->toArray();
-        $tagIds = $post->tags()->pluck('tags.id')->toArray(); // recuperer les IDs des tags de ce post
-        $post->tags()->detach();
-        $post->delete();
-        
-        foreach ($tagIds as $tagId) {
-            $tag = Tag::findOrFail($tagId);
-            if ($tag->posts()->count() == 0) {
-                $tag->delete();
+        if (auth()->id() == $post->user_id){
+            $tagIds = $post->tags()->pluck('tags.id')->toArray(); // recuperer les IDs des tags de ce post
+            $post->tags()->detach();
+            $post->delete();
+            
+            foreach ($tagIds as $tagId) {
+                $tag = Tag::findOrFail($tagId);
+                if ($tag->posts()->count() == 0) {
+                    $tag->delete();
+                }
             }
-        }
-        return redirect()->route('feed')->with('delete', 'Le post a bien été supprimé.');
+            return redirect()->back()->with('delete', 'Le post a bien été supprimé.');
+        }else
+            return redirect()->back()->with('delete', 'Vous n\'avez pas le rôle ou le privilège requis !');
+
+        // return redirect()->route('feed');
     }
 }

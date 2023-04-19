@@ -132,7 +132,9 @@
                     @foreach ($users as $user)
                         @if (auth()->user()->id != $user->id)
                             <li class="d-flex align-items-center border-bottom pb-3 mb-2">
-                                <img src="{{ asset('images/default.png') }}" alt="User Avatar" class="rounded-circle me-3 shadow-sm" style="width: 60px">
+                                <a href="{{ route('profiles.show', $user->id ) }}">
+                                    <img src="{{ $user->profile_photo_url }}" alt="User Avatar" class="rounded-circle me-3 shadow-sm" style="width: 60px">
+                                </a>
                                 {{-- @livewire('follow', ['user' => $user]) --}}
                                 <livewire:follow :user="$user" />
                             </li>

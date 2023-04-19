@@ -83,9 +83,10 @@
                         <div class="post-content">
                             <p><input type="hidden" name="postId_up" id="postId_up"></p>
                             <p><input type="text" class="w-100" name="post_desc_up" id="post_desc_up"></p>
-                            @if ($post->post_image)
+                            <p class="img-post"></p>
+                            {{-- @if ($post->post_image)
                                 <p class="img-post"><img src="{{ asset('images/'.$post->post_image) }}" alt="post image"></p>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                 </div>

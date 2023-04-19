@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -48,3 +49,6 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->nam
 
 
 Route::resource('tags', TagController::class)->only(['index', 'show']);
+
+// Route::resource('profiles', ProfileController::class);
+Route::resource('profiles', ProfileController::class)->only(['show']);
