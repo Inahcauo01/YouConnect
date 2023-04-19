@@ -395,7 +395,7 @@
                                                     @endif
                                                 </ul>
                                             </div>
-                                            <button class="btn btn-sm rounded text-white p-2" style="background-color: #0065b8 !important">
+                                            <button class="btn btn-sm rounded text-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #0065b8 !important">
                                                 Modifier mes coordonées
                                             </button>
                                         </div>
@@ -525,11 +525,54 @@
                                 </div>
                             </div>
                             @endforeach
-                            
-                            <div class="row">
-                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button> --}}
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mettre à jour mon profile</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Titre</label>
+                        <input type="text" name="titre" class="form-control border rounded" id="exampleFormControlInput1" placeholder="developper/ formateur/ etudiant/ . . .">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Date de naissance</label>
+                        <input type="date" name="date_naissance" class="form-control border rounded" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Telephone</label>
+                        <input type="text" name="telephone" class="form-control border rounded" id="exampleFormControlInput1" placeholder="+212 ....">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Linkedin</label>
+                        <input type="url" name="link_linkedin" class="form-control border rounded" id="exampleFormControlInput1" placeholder="https://www.linkedin.com/in/.....">
+                    </div>
+                    <div class="">
+                        <label for="exampleFormControlInput1" class="form-label">Github</label>
+                        <input type="url" name="link_github" class="form-control border rounded" id="exampleFormControlInput1" placeholder="https://github.com/....">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-secondary btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn bg-primary text-white btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
