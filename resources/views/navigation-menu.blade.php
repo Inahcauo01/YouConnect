@@ -209,24 +209,49 @@
                         @endif
                         </span>
                     </button>
-                    <ul class="dropdown-menu" style="width: 100vw">
-                        <div class="notification-heading d-flex justify-content-between align-items-center px-1">
-                            <p class="menu-title ">Notifications <small>({{ auth()->user()->unreadNotifications->count() }})</small></p>
-                            <p class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></p>
+                    <ul class="dropdown-menu" style="width: 23rem">
+                        <div class="notification-heading d-flex justify-content-between align-items-center px-2">
+                            <p class="menu-title ">Notifications ({{ auth()->user()->unreadNotifications->count() }})</p>
+                            <button class="btn btn-sm" href="#">marquer comme lu</button>
                         </div>
                         <hr class="m-auto w-75 mt-2">
-                        {{-- @foreach(auth()->user()->unreadNotifications as $notification)
-                            <li class="bg-light">
-                                <a class="dropdown-item" href="#">
-                                    <small class="notification-item d-flex justify-content-between align-items-center">
-                                        <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                        {{-- @dd(auth()->user()->unreadNotifications) --}}
+                        @foreach(auth()->user()->unreadNotifications as $notification)
+                            @if ($notification->type == "App\Notifications\LikeNotifications")
+                                <li class="border-bottom">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
+                                        <small class="notification-item ">
+                                            <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                        </small>
                                         @if (isset($notification->data['image_post']))
-                                        <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end mx-5 rounded">
+                                            <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end rounded">
                                         @endif
-                                    </small>
-                                </a>
-                            </li>
-                        @endforeach --}}
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($notification->type == "App\Notifications\FollowNotifications")
+                                <li class="border-bottom">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                        <small class="notification-item ">
+                                            <p><b>{{ $notification->data['follower_name'] }}</b> is following you</p>
+                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                        </small>
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($notification->type == "App\Notifications\CommentNotifications")
+                                {{-- @dd($notification) --}}
+                                <li class="border-bottom">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
+                                        <small class="notification-item ">
+                                            <p><b>{{ $notification->data['comment_post'] }}</b> a ajouté un commentaire: "{{$notification->data['content_comment']}}"</p>
+                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                        </small>
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -264,15 +289,13 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-dropdown-link href="{{ route('profiles.show', auth()->id()) }}">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-dropdown-link>
 
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
-                    </x-responsive-nav-link>
-                @endif
+                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    {{ __('Parametres') }}
+                </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" x-data>

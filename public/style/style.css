@@ -150,7 +150,7 @@
   /* Sidebar styles */
 .sidebar-left,
 .sidebar-right {
-  position: fixed;
+  /* position: fixed; */
   padding: 15px;
   width: 25%;
   margin: 20px 3rem;
