@@ -32,10 +32,11 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+        $user->assignRole('user');
 
-        $lastuser = User::orderBy('created_at')->get()->first();
+        $lastUserId = User::latest()->value('id');
         Profile::create([
-            'id_user' => $lastuser->id,
+            'id_user' => $lastUserId,
             'bg_image'=> 'bg-default.png',
         ]);
         return $user;

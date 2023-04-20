@@ -60,47 +60,52 @@ class PostController extends Controller
     
     public function store(StorePostRequest $request)
     {
-        $validatedData = $request->validate([
-            'post_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-    
-        $post = new Post;
-    
-        if ($request->hasFile('post_image')) {
-            $image    = $request->file('post_image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $filename);
-            $post->post_image = $filename;
-        }
-    
-        $postDescription = $request->input('post_description');
-        $tags = [];
-    
-        if (!empty($postDescription)) {
-            $words = explode(' ', $postDescription);
-            $tags = array_filter($words, function($word) {
-                return strpos($word, '#') === 0 && strpos($word, ' ') === false;
-            });
-        }
-    
-        // $post->post_desc = str_replace($tags, '', $postDescription);
-        $post->post_desc = $postDescription;
-        $post->user_id = auth()->user()->id;
-        $post->post_date = now();
-        $post->save();
-    
-        $tag_ids = [];
-    
-        if (is_array($tags)) {
-            foreach ($tags as $tag) {
-                $tag_model = Tag::firstOrCreate(['name' => $tag]);
-                $tag_ids[] = $tag_model->id;
+        if(auth()->user()->hasPermissionTo('edit All post') || auth()->user()->hasRole('admin'))
+        {       
+            $validatedData = $request->validate([
+                'post_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+        
+            $post = new Post;
+        
+            if ($request->hasFile('post_image')) {
+                $image    = $request->file('post_image');
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $filename);
+                $post->post_image = $filename;
             }
+        
+            $postDescription = $request->input('post_description');
+            $tags = [];
+        
+            if (!empty($postDescription)) {
+                $words = explode(' ', $postDescription);
+                $tags = array_filter($words, function($word) {
+                    return strpos($word, '#') === 0 && strpos($word, ' ') === false;
+                });
+            }
+
+            $post->post_desc = $postDescription;
+            $post->user_id = auth()->user()->id;
+            $post->post_date = now();
+            $post->save();
+        
+            $tag_ids = [];
+        
+            if (is_array($tags)) {
+                foreach ($tags as $tag) {
+                    $tag_model = Tag::firstOrCreate(['name' => $tag]);
+                    $tag_ids[] = $tag_model->id;
+                }
+            }
+        
+            $post->tags()->sync($tag_ids);
+        
+            return redirect()->route('feed')->with('add', 'Le post a été ajouté avec succès.');
         }
-    
-        $post->tags()->sync($tag_ids);
-    
-        return redirect()->route('feed')->with('add', 'Le post a été ajouté avec succès.');
+        else{
+            return redirect()->route('feed')->with('add', 'Tu n as pas les preveliges necessaires !');
+        }
     }
 
     /**

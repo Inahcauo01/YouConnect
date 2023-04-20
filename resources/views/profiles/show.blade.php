@@ -395,8 +395,9 @@
                                                     @endif
                                                 </ul>
                                             </div>
-                                            <button class="btn btn-sm rounded text-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #0065b8 !important">
-                                                Modifier mes coordonées
+                                            <button class="p-2 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16.04 3.02001L8.16 10.9C7.86 11.2 7.56 11.79 7.5 12.22L7.07 15.23C6.91 16.32 7.68 17.08 8.77 16.93L11.78 16.5C12.2 16.44 12.79 16.14 13.1 15.84L20.98 7.96001C22.34 6.60001 22.98 5.02001 20.98 3.02001C18.98 1.02001 17.4 1.66001 16.04 3.02001Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14.91 4.1499C15.58 6.5399 17.45 8.4099 19.85 9.0899" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                                <span class="m-1">Modifier</span>
                                             </button>
                                         </div>
                                     </div>
@@ -539,7 +540,10 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            {{-- @dd($profile) --}}
+            <form action="{{ route('profiles.update', $profile->id) }}" method="POST" class="modal-content">
+                @csrf
+                @method('PUT')
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Mettre à jour mon profile</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -547,7 +551,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="bio" rows="3" placeholder=""></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Titre</label>
@@ -562,6 +566,10 @@
                         <input type="text" name="telephone" class="form-control border rounded" id="exampleFormControlInput1" placeholder="+212 ....">
                     </div>
                     <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Adreese</label>
+                        <input type="text" name="adresse" class="form-control border rounded" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Linkedin</label>
                         <input type="url" name="link_linkedin" class="form-control border rounded" id="exampleFormControlInput1" placeholder="https://www.linkedin.com/in/.....">
                     </div>
@@ -572,9 +580,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-secondary btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn bg-primary text-white btn-primary">Save changes</button>
+                    <button type="submit" class="btn bg-primary text-white btn-primary">Modifier</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </body>

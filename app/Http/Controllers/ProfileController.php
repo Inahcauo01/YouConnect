@@ -64,9 +64,22 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProfileRequest $request, Profile $profile)
+    public function update(UpdateProfileRequest $request, $id)
     {
-        //
+        // dd($request->input('bio'));
+        $profile = Profile::findOrFail($id);
+        
+        $profile->titre          = $request->input('titre');
+        $profile->date_naissance = $request->input('date_naissance');
+        $profile->telephone      = $request->input('telephone');
+        $profile->adresse        = $request->input('adresse');
+        $profile->linkedin_link  = $request->input('link_linkedin');
+        $profile->github_link    = $request->input('link_github');
+        $profile->bio            = $request->input('bio');
+        // dd($profile->bio);
+        $profile->save();
+
+        return redirect()->back();
     }
 
     /**
