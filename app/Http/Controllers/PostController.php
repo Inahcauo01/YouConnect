@@ -60,7 +60,7 @@ class PostController extends Controller
     
     public function store(StorePostRequest $request)
     {
-        if(auth()->user()->hasPermissionTo('edit All post') || auth()->user()->hasRole('admin'))
+        if(auth()->user()->hasPermissionTo('add post') || auth()->user()->hasRole('admin'))
         {       
             $validatedData = $request->validate([
                 'post_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
