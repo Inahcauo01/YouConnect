@@ -46,6 +46,17 @@ class ProfileController extends Controller
 
         $posts = Post::where('user_id', $id)->get();
 
+        // $notification = DB::table('notifications')->where('data->follower_id', $id)->first();
+        $notification = DB::table('notifications')
+                ->where('data->follower_id', $id)
+                ->where('read_at', null)
+                ->where('type', 'App\Notifications\FollowNotifications')
+                ->first();
+
+        if ($notification) {
+            DB::table('notifications')->where('id', $notification->id)->update(['read_at' => date('Y-m-d H:i:s')]);
+        }
+
         return view('profiles.show', [
             'profile' => $profile,
             'posts' => $posts,

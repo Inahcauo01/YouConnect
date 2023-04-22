@@ -14,10 +14,12 @@ class FollowNotifications extends Notification
     /**
      * Create a new notification instance.
      */
+    public $follower_id;
     public $follower_name;
 
-    public function __construct($follower_name)
+    public function __construct($follower_name, $follower_id)
     {
+        $this->follower_id  = $follower_id;
         $this->follower_name = $follower_name;
     }
 
@@ -51,6 +53,7 @@ class FollowNotifications extends Notification
     {
         return [
             'follower_name' => $this->follower_name,
+            'follower_id' => $this->follower_id,
         ];
     }
 }

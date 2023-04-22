@@ -37,6 +37,7 @@ Route::middleware([
 Route::get('/feed', [PostController::class, 'index'])->name('feed');
 Route::resource('posts', PostController::class);
 Route::put('posts', [PostController::class, 'update'])->name('posts.update');
+Route::post('/posts/markCommeLu', 'PostController@markCommeLu')->name('posts.markCommeLu');
 
 // like and unlike
 Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
@@ -52,3 +53,4 @@ Route::resource('tags', TagController::class)->only(['index', 'show']);
 
 // Route::resource('profiles', ProfileController::class);
 Route::resource('profiles', ProfileController::class)->only(['show','update']);
+Route::get('/mark-as-read', [App\Http\Controllers\PostController::class, 'markCommeLu'])->name('posts.markCommeLu');

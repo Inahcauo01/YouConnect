@@ -26,7 +26,7 @@ class Follow extends Component
     public function follow()
     {
         auth()->user()->following()->attach($this->user);
-        Notification::send($this->user, new FollowNotifications(auth()->user()->name));
+        Notification::send($this->user, new FollowNotifications(auth()->user()->name, auth()->id()));
         $this->user = $this->user->fresh();
     }
 

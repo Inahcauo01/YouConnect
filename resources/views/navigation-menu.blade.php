@@ -95,7 +95,7 @@
                     <ul class="dropdown-menu" style="width: 25rem">
                         <div class="notification-heading d-flex justify-content-between align-items-center px-2">
                             <p class="menu-title ">Notifications ({{ auth()->user()->unreadNotifications->count() }})</p>
-                            <button class="btn btn-sm" href="#">marquer comme lu</button>
+                            <a class="btn btn-sm" href="{{ route('posts.markCommeLu') }}">marquer comme lu</a>
                         </div>
                         <hr class="m-auto w-75 mt-2">
                         {{-- @dd(auth()->user()->unreadNotifications) --}}
@@ -115,7 +115,7 @@
                             @endif
                             @if ($notification->type == "App\Notifications\FollowNotifications")
                                 <li class="border-bottom">
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('profiles.show', $notification->data['follower_id']) }}">
                                         <small class="notification-item ">
                                             <p><b>{{ $notification->data['follower_name'] }}</b> is following you</p>
                                             <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
@@ -212,7 +212,7 @@
                     <ul class="dropdown-menu" style="width: 23rem">
                         <div class="notification-heading d-flex justify-content-between align-items-center px-2">
                             <p class="menu-title ">Notifications ({{ auth()->user()->unreadNotifications->count() }})</p>
-                            <button class="btn btn-sm" href="#">marquer comme lu</button>
+                            <a class="btn btn-sm" href="{{ route('posts.markCommeLu') }}">marquer comme lu</a>
                         </div>
                         <hr class="m-auto w-75 mt-2">
                         {{-- @dd(auth()->user()->unreadNotifications) --}}

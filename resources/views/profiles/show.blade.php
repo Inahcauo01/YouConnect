@@ -97,61 +97,60 @@
                     
                 @endif
                     {{-- notifications --}}
-                <div class="dropdown">
-                    <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
-                        @if (auth()->user()->unreadNotifications->count() > 0)
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ auth()->user()->unreadNotifications->count() }}
-                            <span class="visually-hidden">unread messages</span>
-                        @endif
-                        </span>
-                    </button>
-                    <ul class="dropdown-menu" style="width: 25rem">
-                        <div class="notification-heading d-flex justify-content-between align-items-center px-2">
-                            <p class="menu-title ">Notifications ({{ auth()->user()->unreadNotifications->count() }})</p>
-                            <button class="btn btn-sm" href="#">marquer comme lu</button>
-                        </div>
-                        <hr class="m-auto w-75 mt-2">
-                        {{-- @dd(auth()->user()->unreadNotifications) --}}
-                        @foreach(auth()->user()->unreadNotifications as $notification)
-                            @if ($notification->type == "App\Notifications\LikeNotifications")
-                                <li class="border-bottom">
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
-                                        <small class="notification-item ">
-                                            <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
-                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
-                                        </small>
-                                        @if (isset($notification->data['image_post']))
-                                            <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end rounded">
-                                        @endif
-                                    </a>
-                                </li>
+                    <div class="dropdown">
+                        <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="icon" id="bell"><i class="fa-regular fa-bell"></i></div>
+                            @if (auth()->user()->unreadNotifications->count() > 0)
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ auth()->user()->unreadNotifications->count() }}
+                                <span class="visually-hidden">unread messages</span>
                             @endif
-                            @if ($notification->type == "App\Notifications\FollowNotifications")
-                                <li class="border-bottom">
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-                                        <small class="notification-item ">
-                                            <p><b>{{ $notification->data['follower_name'] }}</b> is following you</p>
-                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
-                                        </small>
-                                    </a>
-                                </li>
-                            @endif
-                            @if ($notification->type == "App\Notifications\CommentNotifications")
-                                {{-- @dd($notification) --}}
-                                <li class="border-bottom">
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
-                                        <small class="notification-item ">
-                                            <p><b>{{ $notification->data['comment_post'] }}</b> a ajouté un commentaire: "{{$notification->data['content_comment']}}"</p>
-                                            <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
-                                        </small>
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu" style="width: 25rem">
+                            <div class="notification-heading d-flex justify-content-between align-items-center px-2">
+                                <p class="menu-title ">Notifications ({{ auth()->user()->unreadNotifications->count() }})</p>
+                                <button class="btn btn-sm" href="{{ route('posts.markCommeLu') }}">marquer comme lu</button>
+                            </div>
+                            <hr class="m-auto w-75 mt-2">
+                            @foreach(auth()->user()->unreadNotifications as $notification)
+                                @if ($notification->type == "App\Notifications\LikeNotifications")
+                                    <li class="border-bottom">
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
+                                            <small class="notification-item ">
+                                                <p><b>{{ $notification->data['like_post'] }}</b> liked your post</p>
+                                                <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                            </small>
+                                            @if (isset($notification->data['image_post']))
+                                                <img src="{{ asset('images/'.$notification->data['image_post']) }}" style="width: 50px;" class="d-flex justify-self-end rounded">
+                                            @endif
+                                        </a>
+                                    </li>
+                                @endif
+                                @if ($notification->type == "App\Notifications\FollowNotifications")
+                                    <li class="border-bottom">
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('profiles.show', $notification->data['follower_id']) }}">
+                                            <small class="notification-item ">
+                                                <p><b>{{ $notification->data['follower_name'] }}</b> is following you</p>
+                                                <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                            </small>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if ($notification->type == "App\Notifications\CommentNotifications")
+                                    {{-- @dd($notification) --}}
+                                    <li class="border-bottom">
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('posts.show', $notification->data['post_id']) }}">
+                                            <small class="notification-item ">
+                                                <p><b>{{ $notification->data['comment_post'] }}</b> a ajouté un commentaire: "{{$notification->data['content_comment']}}"</p>
+                                                <p>{{ date('j F   H:i', strtotime($notification->created_at)) }}</p>
+                                            </small>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
         
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">

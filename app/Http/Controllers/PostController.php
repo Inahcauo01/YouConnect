@@ -193,4 +193,13 @@ class PostController extends Controller
 
         // return redirect()->route('feed');
     }
+
+    public function markCommeLu()
+    {
+        DB::table('notifications')
+            ->where('read_at', null)
+            ->update(['read_at' => now()]);
+        return redirect()->back();
+    }
+
 }
