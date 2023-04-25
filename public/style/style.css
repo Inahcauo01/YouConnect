@@ -344,3 +344,33 @@
   box-shadow: 0 0 4px lightgray;
   z-index: 10;
 }
+/* chat */
+.chat-container{
+  position: fixed;
+  height: 86%;
+  width: 96%;
+  left: 2.5rem; 
+  top: 5rem;
+}
+.chat-box-container{
+  position: relative;
+  height: 90%;
+  width: 100%;
+}
+.chatbox-header{
+  width: 100px;
+  border: 2px solid red;
+  width: 100%;
+  padding: 10px;
+}
+.chatbox-body{
+  height: calc(60vh/2)
+}
+.chatbox-footer{
+  position: absolute;
+  bottom: 0;
+}
+.chatbox-footer{
+  position: absolute;
+  bottom: 0;
+}

@@ -7,6 +7,9 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ProfileController;
 
+use App\Http\Livewire\Chat\CreateChat;
+use App\Http\Livewire\Chat\Main;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +57,8 @@ Route::resource('tags', TagController::class)->only(['index', 'show']);
 // Route::resource('profiles', ProfileController::class);
 Route::resource('profiles', ProfileController::class)->only(['show','update']);
 Route::get('/mark-as-read', [App\Http\Controllers\PostController::class, 'markCommeLu'])->name('posts.markCommeLu');
+
+// livewire chat
+Route::get('/users_chat',CreateChat::class)->name('users_chat');
+Route::get('/chat{key?}',Main::class)->name('chat');
+Route::get('/main',Main::class)->name('main');

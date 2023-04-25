@@ -5,8 +5,6 @@
         <small class="follow-stats d-flex align-items-center mb-1">
             <button type="button" class="text-secondary me-3" data-bs-toggle="modal" data-bs-target="#list-following-{{ $user->id }}">{{ $user->following()->count() }} Following</button>
             <button type="button" class="text-secondary me-3" data-bs-toggle="modal" data-bs-target="#list-follower-{{ $user->id }}">{{ $user->follower()->count() }} Followers</button>
-            {{-- <span class="text-secondary me-3">{{ $user->following()->count() }} Following</span> --}}
-            {{-- <span class="text-secondary">{{ $user->follower()->count() }} Followers</span> --}}
         </small>
         
         @if ($user->follower->contains(auth()->user()->id))
