@@ -354,23 +354,43 @@
 }
 .chat-box-container{
   position: relative;
-  height: 90%;
+  height: 96%;
   width: 100%;
 }
 .chatbox-header{
   width: 100px;
-  border: 2px solid red;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
 }
 .chatbox-body{
-  height: calc(60vh/2)
+  height: 62vh;
+  position: relative;
+  overflow-y: scroll;
 }
 .chatbox-footer{
   position: absolute;
   bottom: 0;
 }
-.chatbox-footer{
+.msg_body{
+  margin: 10px;
+  padding: 10px;
+  background-color: #0081eb80;
+  border-radius: 1rem;
+  position: relative;
+  padding-bottom: 27px;
+  width: fit-content;
+  min-width: 7rem;
+}
+.msg_body_receiver{
+  margin-right: 35%;
+  border-bottom-left-radius: 0 !important;
+}
+.msg_body_sender{
+  margin-left: 35%;
+  border-bottom-right-radius: 0 !important;
+}
+.time_date{
   position: absolute;
-  bottom: 0;
+  right: 14px;
+  bottom: 4px
 }
