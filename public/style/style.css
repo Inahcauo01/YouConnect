@@ -374,19 +374,21 @@
 .msg_body{
   margin: 10px;
   padding: 10px;
-  background-color: #0081eb80;
+  background-color: #dcdcdc;
   border-radius: 1rem;
   position: relative;
   padding-bottom: 27px;
-  width: fit-content;
   min-width: 7rem;
+  flex-grow: 0;
 }
 .msg_body_receiver{
-  margin-right: 35%;
+  margin-right: 60%;
+  width: fit-content;
   border-bottom-left-radius: 0 !important;
 }
 .msg_body_sender{
-  margin-left: 35%;
+  float: right;
+  margin-left: 70%;
   border-bottom-right-radius: 0 !important;
 }
 .time_date{

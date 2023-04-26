@@ -25,6 +25,7 @@ function liking(postId){
         tags = words.filter(word => word.startsWith('#') && word.indexOf(' ') === -1);
     
         // Update the hidden input field for tags
+        if(tags.lenght >=1)
         document.getElementById('tags').value = tags.join(',');
     });
 
@@ -34,6 +35,7 @@ function liking(postId){
     
     inputImg.onchange = (e) => {
         if (inputImg.files[0]) {
+            document.querySelector('.imgshow-container').classList.remove('hide');
             imgPub.src = URL.createObjectURL(inputImg.files[0]); 
         }
     };

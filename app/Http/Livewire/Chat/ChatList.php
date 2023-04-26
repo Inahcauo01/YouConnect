@@ -23,6 +23,7 @@ class ChatList extends Component
         $this->receiverInstance = User::find($receiverId);
 
         $this->emitTo('chat.chatbox','chargerConversation', $this->selectedconversation,$this->receiverInstance);
+        $this->emitTo('chat.send-message','updateSendMessage', $this->selectedconversation,$this->receiverInstance);
     }
 
     public function getUserInstance(Conversation $conversation, $request)

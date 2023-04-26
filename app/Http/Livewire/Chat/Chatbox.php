@@ -13,9 +13,14 @@ class Chatbox extends Component
     public $receiverInstance;
     public $paginateVar = 10;
     public $messages;
+    public $message_count;
     
-
     protected $listeners = ['chargerConversation'];
+
+    public function pushMessage()
+    {
+        # code...
+    }
 
     public function chargerConversation(Conversation $conversation, User $receiver)
     {

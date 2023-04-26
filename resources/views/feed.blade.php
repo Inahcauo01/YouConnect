@@ -37,8 +37,8 @@
                             <i class="fa-solid fa-upload" style="color: #0248c0;"></i>
                         </label>
                         <input type="file" id="post_image" name="post_image">
-                        <div class="imgshow-container">
-                            <img id="imgshow" src="" alt="" onerror="this.src='fallback-img.jpg'">
+                        <div class="imgshow-container hide">
+                            <img id="imgshow" src="" alt="">
                         </div>
                     </div>
                     <div class="form-group w-100">
