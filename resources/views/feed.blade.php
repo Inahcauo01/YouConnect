@@ -32,16 +32,15 @@
             <div class="publish">
                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="form-publish">
                     @csrf
-                    <div class="image-upload">
-                        <label for="upload">
+                    <div class="image-upload w-100">
+                        <label for="post_image">
                             <i class="fa-solid fa-upload" style="color: #0248c0;"></i>
                         </label>
                         <input type="file" id="post_image" name="post_image">
+                        <div class="imgshow-container">
+                            <img id="imgshow" src="" alt="" onerror="this.src='fallback-img.jpg'">
+                        </div>
                     </div>
-                    {{-- <input type="text" name="tags">
-                    <div class="form-bottom-part">
-                        <textarea id="post_desc" name="post_desc" class="form-control-publish" rows="3" placeholder="what's in your head"></textarea>
-                    </div> --}} 
                     <div class="form-group w-100">
                         <textarea type="text" class="form-control-publish" rows="3" id="post-description" name="post_description" placeholder="Enter your post description and tags"></textarea>
                     </div>

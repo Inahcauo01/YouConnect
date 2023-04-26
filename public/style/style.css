@@ -394,3 +394,8 @@
   right: 14px;
   bottom: 4px
 }
+.comment-form-chat{
+  position: absolute;
+  bottom: 0;
+  width: 99%;
+}

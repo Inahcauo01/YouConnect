@@ -28,3 +28,13 @@ function liking(postId){
         document.getElementById('tags').value = tags.join(',');
     });
 
+    
+    let imgPub = document.getElementById("imgshow");
+    let inputImg = document.getElementById("post_image");
+    
+    inputImg.onchange = (e) => {
+        if (inputImg.files[0]) {
+            imgPub.src = URL.createObjectURL(inputImg.files[0]); 
+        }
+    };
+    

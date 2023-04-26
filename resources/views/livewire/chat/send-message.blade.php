@@ -1,6 +1,6 @@
 <div>
     {{-- Success is as dangerous as failure. --}}
-    <form class="comment-form" wire:submit.prevent="store">
+    <form class="comment-form comment-form-chat" wire:submit.prevent="store">
         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
         <input type="text" placeholder="Add a comment..." wire:model="newComment" name="newComment">
         

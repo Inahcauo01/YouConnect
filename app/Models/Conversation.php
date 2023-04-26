@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Message;
+use App\Models\User;
 
 class Conversation extends Model
 {
@@ -20,7 +22,7 @@ class Conversation extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function messages(): HasMany
+    public function messages()
     {
         return $this->hasMany(Message::class);
     }

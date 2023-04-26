@@ -17,7 +17,7 @@ class CreateChat extends Component
         if($checkedconversation->count() == 0){
             $createdConversation = Conversation::create(['receiver_id'=>$receiverId , 'sender_id'=>auth()->user()->id]);
             
-            $createdMessage = Message::create(['conversation_id'=>$createdConversation->id,'sender_id'=>auth()->user()->id,'receiver_id'=>$receiverId]);
+            $createdMessage = Message::create(['conversation_id'=>$createdConversation->id,'sender_id'=>auth()->user()->id,'receiver_id'=>$receiverId,'body'=>$this->message]);
             $createdConversation->last_time_message = $createdMessage->created_at;
             $createdConversation->save();
 
