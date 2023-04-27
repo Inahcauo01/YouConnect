@@ -28,11 +28,30 @@
     @else 
         <span class="d-flex justify-content-center align-items-center">Aucune conversation selectée</span>
     @endif
-        {{-- <script>
-            document.querySelector('#chatbox-body').scrollTop = document.querySelector('#chatbox-body').scrollHeight;
-            setInterval(() => {
-                document.querySelector('#chatbox-body').scrollTop = document.querySelector('#chatbox-body').scrollHeight;
-            }, 500);
+        <script>
+            // document.querySelector('#chatbox-body').scrollTop = document.querySelector('#chatbox-body').scrollHeight;
+            // setInterval(() => {
+            //     document.querySelector('#chatbox-body').scrollTop = document.querySelector('#chatbox-body').scrollHeight;
+            // }, 500);
+            window.addEventListener('rowChatToButtom', event =>{
+                $('#chatbox-body').scrollTop($('#chatbox-body')[0].scrollHeight);
+            })
             
-        </script> --}}
+            $('#chatbox-body').scroll(()=>{
+                var top = $('#chatbox-body').scrollTop();
+                if(top == 0)
+                     window.livewire.emit('plusMsg');
+            })
+
+
+            window.addEventListener('updatedHeight', event =>{
+                console.log("old :"+event.detail.height);
+                let newHeight = $('#chatbox-body')[0].scrollHeight;
+                let height    = $('#chatbox-body').scrollTop(newHeight - (event.detail.height));
+                console.log("new :"+height);
+                window.livewire.emit('updatedHeight', {
+                    height:height,
+                })
+            })
+        </script>
 </div>

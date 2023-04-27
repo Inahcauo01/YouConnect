@@ -15,6 +15,12 @@
     <script>
         window.addEventListener('chatSelected', event =>{
             $('#chatbox-body').scrollTop($('#chatbox-body')[0].scrollHeight);
+            let height = $('#chatbox-body')[0].scrollHeight;
+            // alert(height)
+            window.livewire.emit('updateHeight', { 
+                height:height,
+
+             })
         })
     </script>
 </div>
