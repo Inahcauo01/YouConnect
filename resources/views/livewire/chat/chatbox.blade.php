@@ -1,4 +1,5 @@
 <div>
+{{-- <div wire:poll> --}}
     {{-- Do your work, then step back. --}}
     {{-- @dd($selectedConversation) --}}
     @if ($selectedConversation)
@@ -11,7 +12,7 @@
     <div class="chatbox-body d-flex flex-column" id="chatbox-body">
         @foreach ($messages as $message)
         @if (auth()->id() == $message->sender_id)
-            <div class="msg_body msg_body_sender">
+            <div class="msg_body msg_body_sender align-self-end">
         @else
             <div class="msg_body msg_body_receiver">
         @endif

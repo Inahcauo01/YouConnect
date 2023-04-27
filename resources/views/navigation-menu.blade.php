@@ -81,6 +81,9 @@
                     </div>
                     
                 @endif
+                <a href="{{ route('chat')}}">
+                    <svg fill="#0000000" width="22px" height="22px" viewBox="0 0 24 24" id="chat-left-3" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path id="secondary" d="M21,8V19a1,1,0,0,1-1,1H17" style="fill: none; stroke: #0a91ff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M3,5V15a1,1,0,0,0,1,1H8l5,3V16h3a1,1,0,0,0,1-1V5a1,1,0,0,0-1-1H4A1,1,0,0,0,3,5Z" style="fill: none; stroke: #363535; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></g></svg>
+                </a>
                     {{-- notifications --}}
                 <div class="dropdown">
                     <button type="button" class="m-2 position-relative" data-bs-toggle="dropdown" aria-expanded="false">

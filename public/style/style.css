@@ -378,17 +378,20 @@
   border-radius: 1rem;
   position: relative;
   padding-bottom: 27px;
-  min-width: 7rem;
+  min-width: 8rem;
   flex-grow: 0;
+  width: 80%;
+  max-width: 80%;
+  max-width: max-content;
 }
 .msg_body_receiver{
   margin-right: 60%;
-  width: fit-content;
+  width: auto;
   border-bottom-left-radius: 0 !important;
 }
 .msg_body_sender{
-  float: right;
-  margin-left: 70%;
+  /* float: right;
+  margin-left: 85%; */
   border-bottom-right-radius: 0 !important;
 }
 .time_date{

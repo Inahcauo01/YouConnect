@@ -17,7 +17,21 @@ class Chatbox extends Component
     public $message_count;
     public $height;
     
-    protected $listeners = ['chargerConversation','pushMessage','plusMsg','updateHeight'];
+    // protected $listeners = ['chargerConversation','pushMessage','plusMsg','updateHeight'];
+
+    public function getListeners()
+    {
+        $auth_id = auth()->user()->id;
+        return [
+            "echo-private:chat. {$auth_id},MessageSent" => 'broadcastedMessageReceived',
+            'chargerConversation','pushMessage','plusMsg','updateHeight',
+        ];
+    }
+
+    function broadcastedMessageReceived($event)
+    {
+        dd($event);
+    }
 
     public function pushMessage($messageId)
     {
