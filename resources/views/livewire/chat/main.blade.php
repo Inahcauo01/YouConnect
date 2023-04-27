@@ -12,4 +12,9 @@
             <livewire:chat.send-message>
         </div>
     </div>
+    <script>
+        window.addEventListener('chatSelected', event =>{
+            $('#chatbox-body').scrollTop($('#chatbox-body')[0].scrollHeight);
+        })
+    </script>
 </div>

@@ -18,25 +18,30 @@ function liking(postId){
     var postDescription = document.getElementById('post-description');
     var tags = [];
 
-    postDescription.addEventListener('input', function() {
-        var description = postDescription.value;
-        var words = description.split(' ');
+    if(postDescription){
+        postDescription.addEventListener('input', function() {
+            var description = postDescription.value;
+            var words = description.split(' ');
 
-        tags = words.filter(word => word.startsWith('#') && word.indexOf(' ') === -1);
-    
-        // Update the hidden input field for tags
-        if(tags.lenght >=1)
-        document.getElementById('tags').value = tags.join(',');
-    });
+            tags = words.filter(word => word.startsWith('#') && word.indexOf(' ') === -1);
+        
+            // Update the hidden input field for tags
+            if(tags.lenght >=1)
+            document.getElementById('tags').value = tags.join(',');
+        });
+    }
 
     
     let imgPub = document.getElementById("imgshow");
     let inputImg = document.getElementById("post_image");
     
-    inputImg.onchange = (e) => {
-        if (inputImg.files[0]) {
-            document.querySelector('.imgshow-container').classList.remove('hide');
-            imgPub.src = URL.createObjectURL(inputImg.files[0]); 
-        }
-    };
+    if(inputImg){
+        inputImg.onchange = (e) => {
+            if (inputImg.files[0]) {
+                document.querySelector('.imgshow-container').classList.remove('hide');
+                imgPub.src = URL.createObjectURL(inputImg.files[0]); 
+            }
+        };
+    }
+    
     

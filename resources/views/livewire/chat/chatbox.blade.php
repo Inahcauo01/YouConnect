@@ -8,14 +8,14 @@
             <h3>{{$receiverInstance->name}}</h3>
         </li>
     </div>
-    <div class="chatbox-body d-flex flex-column">
+    <div class="chatbox-body d-flex flex-column" id="chatbox-body">
         @foreach ($messages as $message)
         @if (auth()->id() == $message->sender_id)
             <div class="msg_body msg_body_sender">
         @else
             <div class="msg_body msg_body_receiver">
         @endif
-                <div>
+                <div wire:key='{{$message->id}}'>
                     {{ $message->body }}
                 </div>
                 <small class="time_date d-flex">
@@ -28,4 +28,11 @@
     @else 
         <span class="d-flex justify-content-center align-items-center">Aucune conversation selectée</span>
     @endif
+        {{-- <script>
+            document.querySelector('#chatbox-body').scrollTop = document.querySelector('#chatbox-body').scrollHeight;
+            setInterval(() => {
+                document.querySelector('#chatbox-body').scrollTop = document.querySelector('#chatbox-body').scrollHeight;
+            }, 500);
+            
+        </script> --}}
 </div>

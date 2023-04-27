@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Conversation;
 use App\Models\Message;
 
+
 class Chatbox extends Component
 {
     public $selectedConversation;
@@ -15,11 +16,12 @@ class Chatbox extends Component
     public $messages;
     public $message_count;
     
-    protected $listeners = ['chargerConversation'];
+    protected $listeners = ['chargerConversation','pushMessage'];
 
-    public function pushMessage()
+    public function pushMessage($messageId)
     {
-        # code...
+        $newMessage = Message::find($messageId);
+        $this->messages->push($newMessage);
     }
 
     public function chargerConversation(Conversation $conversation, User $receiver)
@@ -33,6 +35,8 @@ class Chatbox extends Component
         $this->messages = Message::where('conversation_id', $this->selectedConversation->id)
                             ->skip($this->message_count - $this->paginateVar)
                             ->take($this->paginateVar)->get();
+
+        $this->dispatchBrowserEvent('chatSelected');
     }
 
     public function render()
