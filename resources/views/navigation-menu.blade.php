@@ -170,6 +170,12 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            @if(auth()->user()->hasRole('admin'))
+                            <x-dropdown-link href="{{ route('admin-dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                            @endif
+
                             <x-dropdown-link href="{{ route('profiles.show', auth()->id()) }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -292,6 +298,12 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
+                @if(auth()->user()->hasRole('admin'))
+                <x-dropdown-link href="{{ route('admin-dashboard') }}">
+                    {{ __('Dashboard') }}
+                </x-dropdown-link>
+                @endif
+
                 <x-dropdown-link href="{{ route('profiles.show', auth()->id()) }}">
                     {{ __('Profile') }}
                 </x-dropdown-link>
