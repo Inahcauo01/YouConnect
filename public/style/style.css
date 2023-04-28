@@ -334,6 +334,10 @@
   }
 }
 @media screen and (max-width: 750px){
+  #piechart_3d{
+    width: 100%;
+    margin: 0;
+  }
   .sidebar-left,.sidebar-right{
     display: none;
   }

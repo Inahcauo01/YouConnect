@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ProfileController;
 
@@ -40,7 +40,6 @@ Route::middleware([
 Route::get('/feed', [PostController::class, 'index'])->name('feed');
 Route::resource('posts', PostController::class);
 Route::put('posts', [PostController::class, 'update'])->name('posts.update');
-Route::post('/posts/markCommeLu', 'PostController@markCommeLu')->name('posts.markCommeLu');
 
 // like and unlike
 Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
@@ -56,9 +55,19 @@ Route::resource('tags', TagController::class)->only(['index', 'show']);
 
 // Route::resource('profiles', ProfileController::class);
 Route::resource('profiles', ProfileController::class)->only(['show','update']);
-Route::get('/mark-as-read', [App\Http\Controllers\PostController::class, 'markCommeLu'])->name('posts.markCommeLu');
+Route::get('/mark-as-read', [PostController::class, 'markCommeLu'])->name('posts.markCommeLu');
 
 // livewire chat
 Route::get('/users_chat',CreateChat::class)->name('users_chat');
 Route::get('/chat{key?}',Main::class)->name('chat');
 Route::get('/main',Main::class)->name('main');
+
+Route::resource('/admin-dashboard', AdminDashboardController::class);
+
+// Route::get('/list-user-chat', function () {
+//     return view('messages.list-user-chat');
+// });
+
+Route::get('/conversation-show/{messages}', function ($messages) {
+    return view('messages.conversation-show',compact($messages));
+})->name('conversation-show');

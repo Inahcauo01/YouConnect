@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container" wire:poll>
     {{-- Success is as dangerous as failure. --}}
     <div class="chat-container row">
         <div class="chat-list-container col-3">
             @livewire('chat.chat-list')
-            <livewire:chat.create-chat>
+            {{-- <livewire:chat.create-chat> --}}
         </div>
 
         <div class="chat-box-container col-9 border">
