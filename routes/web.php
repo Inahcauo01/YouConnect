@@ -63,7 +63,7 @@ Route::get('/chat{key?}',Main::class)->name('chat');
 Route::get('/main',Main::class)->name('main');
 
 Route::resource('/admin-dashboard', AdminDashboardController::class)->middleware('auth', 'role:admin');
-
+// Route::resource('/admin-dashboard', AdminDashboardController::class);
 // Route::get('/list-user-chat', function () {
 //     return view('messages.list-user-chat');
 // });

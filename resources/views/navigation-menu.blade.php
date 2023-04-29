@@ -171,10 +171,16 @@
                             </div>
 
                             @if(auth()->user()->hasRole('admin'))
-                            <x-dropdown-link href="{{ route('admin-dashboard') }}">
+                            <x-dropdown-link href="{{ route('admin-dashboard.index') }}">
                                 {{ __('Dashboard') }}
                             </x-dropdown-link>
                             @endif
+                            
+                            {{-- @if(auth()->user()->hasRole('admin'))
+                            <x-dropdown-link href="{{ route('admin-dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                            @endif --}}
 
                             <x-dropdown-link href="{{ route('profiles.show', auth()->id()) }}">
                                 {{ __('Profile') }}
@@ -299,10 +305,16 @@
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 @if(auth()->user()->hasRole('admin'))
-                <x-dropdown-link href="{{ route('admin-dashboard') }}">
+                <x-dropdown-link href="{{ route('admin-dashboard.index') }}">
                     {{ __('Dashboard') }}
                 </x-dropdown-link>
                 @endif
+                
+                {{-- @if(auth()->user()->hasRole('admin'))
+                <x-dropdown-link href="{{ route('admin-dashboard') }}">
+                    {{ __('Dashboard') }}
+                </x-dropdown-link>
+                @endif --}}
 
                 <x-dropdown-link href="{{ route('profiles.show', auth()->id()) }}">
                     {{ __('Profile') }}

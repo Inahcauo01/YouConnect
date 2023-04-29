@@ -1,5 +1,6 @@
 <x-guest-layout>
     <x-authentication-card>
+        
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
@@ -39,7 +40,7 @@
                     </a>
                 @endif
 
-                <x-button class="ml-4">
+                <x-button class="ml-4 bg-indigo-600">
                     {{ __('Log in') }}
                 </x-button>
             </div>
